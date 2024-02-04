@@ -12,7 +12,7 @@
     let isTyping = true;
     let isDeleting = false;
 
-    function getDifferentRandomWord(initialWord: string){
+    function getDifferentRandomWord(initialWord: string) {
         let wordIdx = -1;
         do {
             wordIdx = Math.floor(Math.random() * texts.length);
@@ -49,6 +49,27 @@
     onMount(update);
 </script>
 
-<span>
-    {shown}
-</span>
+<div class="inline-flex flex-row place-items-center">
+    <span>
+        {shown}
+    </span>
+    <span class="input-cursor"></span>
+</div>
+
+
+<style>
+    .input-cursor {
+        display: inline-block;
+        width: 2px;
+        height: 1em;
+        background-color: black;
+        margin-left: 3px;
+        animation: blink .6s linear infinite alternate;
+    }
+    @keyframes blink {
+        0% {opacity: 1;}
+        40% {opacity: 1;}
+        60% {opacity: 0;}
+        100% {opacity: 0;}
+    }
+</style>

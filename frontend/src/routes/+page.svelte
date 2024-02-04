@@ -6,7 +6,10 @@
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 
 
-
-Typewriter:
-Mau makan apa hari ini?
-<Typewriter texts={["Budi 🤤", "Nasi Bakar", "Ayam Goreng", "Nasi Hainam", "Burger", "Bakpao"]} />
+<div>
+    <span>
+        Typewriter:
+        Mau makan apa hari ini?
+    </span>
+    <Typewriter texts={["Budi 🤤", "Nasi Bakar", "Ayam Goreng", "Nasi Hainam", "Burger", "Bakpao"]} />
+</div>
