@@ -1,2 +1,12 @@
-<h1>Welcome to SvelteKit</h1>
+<script>
+    import Typewriter from "../components/Typewriter.svelte";
+</script>
+
+<h1 class="text-3xl">Welcome to SvelteKit</h1>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+
+
+
+Typewriter:
+Mau makan apa hari ini?
+<Typewriter texts={["Budi 🤤", "Nasi Bakar", "Ayam Goreng", "Nasi Hainam", "Burger", "Bakpao"]} />
