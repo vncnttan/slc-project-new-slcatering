@@ -27,6 +27,6 @@
 }
 
 .bg-red-sig-gradient {
-    background: linear-gradient(90deg, #FF6B6B 90%, #B02000 0%);
+    background-image: linear-gradient(90deg, #FF370B, #B02000);
     /*background: linear-gradient(90deg, #FF370B 100%, #B02000 0%);*/
 }

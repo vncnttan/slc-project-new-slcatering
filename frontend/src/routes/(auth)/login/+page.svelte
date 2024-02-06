@@ -1,6 +1,7 @@
 <script lang="ts">
     import Particle from "../../../components/Particle.svelte";
     import slcatering_logo from "$lib/assets/slcatering_logo.png";
+    import {toast} from "@zerodevx/svelte-toast";
 
     let usernameIcon: HTMLElement | null = null;
     let passwordIcon: HTMLElement | null = null;
@@ -23,13 +24,15 @@
         passwordIcon?.classList.add("text-gray-500")
     }
 
-    function onSubmit(e: Event) {
+    function onSubmit(e: SubmitEvent) {
         e.preventDefault();
-        console.log("Form submitted");
+        toast.push("Hello World!")
+
+        console.log(e)
     }
 </script>
 
-<div class="bg-red-sig w-screen h-screen">
+<div class="bg-red-sig-gradient w-screen h-screen">
     <Particle/>
     <div class="w-full h-full flex justify-center place-items-center absolute z-20">
         <div class="bg-white p-12">
