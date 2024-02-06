@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .bg-red-sig {
     background-color: #B02000;
 }
@@ -25,4 +24,9 @@
 
 .focused-text-red-sig:focus {
     color: #B02000;
+}
+
+.bg-red-sig-gradient {
+    background: linear-gradient(90deg, #FF6B6B 90%, #B02000 0%);
+    /*background: linear-gradient(90deg, #FF370B 100%, #B02000 0%);*/
 }

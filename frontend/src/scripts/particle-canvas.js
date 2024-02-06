@@ -120,7 +120,7 @@ export class ParticleCanvas {
     }
 
     get totalParticle() {
-        return 100;
+        return this.canvasSize.x * this.canvasSize.y / 10000;
     }
 
     getRandomPosition() {
