@@ -2,6 +2,7 @@
     import Particle from "../../../components/Particle.svelte";
     import slcatering_logo from "$lib/assets/slcatering_logo.png";
     import {toast} from "@zerodevx/svelte-toast";
+    import {Builder} from "xml2js";
     import axios from "axios";
 
     let usernameIcon: HTMLElement | null = null;
@@ -28,6 +29,37 @@
         passwordIcon?.classList.add("text-gray-500")
     }
 
+
+    const builder = new Builder();
+    // const xmls = builder.buildObject({
+    //     'soap:Envelope': {
+    //         $: {
+    //             'xmlns:soap': 'http://www.w3.org/2003/05/soap-envelope',
+    //             'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+    //             'xmlns:xsd': 'http://www.w3.org/2001/XMLSchema'
+    //         },
+    //         'soap:Body': {
+    //             'LogOn': {
+    //                 $: {
+    //                     xmlns: 'http://bluejack.binus.ac.id/lapi/api/Account'
+    //                 },
+    //                 'username': usernameInput,
+    //                 'password': passwordInput
+    //             }
+    //         }
+    //     }
+    // });
+    let xmls='<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"\
+                            xmlns:web="http://www.webserviceX.NET/">\
+            <soapenv:Header/>\
+            <soapenv:Body>\
+              <web:ConversionRate>\
+                <web:FromCurrency>INR</web:FromCurrency>\
+                <web:ToCurrency>USD</web:ToCurrency>\
+              </web:ConversionRate>\
+            </soapenv:Body>\
+          </soapenv:Envelope>';
+
     async function onSubmit(e: SubmitEvent) {
         e.preventDefault();
 
@@ -43,12 +75,20 @@
         }
 
         try {
-            const res = await axios.post("https://bluejack.binus.ac.id/lapi/api/Account/LogOn", {
-                username: usernameInput,
-                password: passwordInput
-            }, {
-               withCredentials: true
-            });
+            // const res = await axios.post("https://bluejack.binus.ac.id/lapi/api/Account/LogOn", {
+            //     username: usernameInput,
+            //     password: passwordInput
+            // }, {
+            //     withCredentials: true
+            // });
+            // const response = await axios.post('https://bluejack.binus.ac.id/lapi/api/Account/LogOn', xmls, {
+            //     headers: { 'Content-Type': 'text/xml' },
+            //     withCredentials: true
+            // });
+            // const data = response.data;
+            const response = axios.get("https://bluejack.binus.ac.id/lapi/api/Assistant?initial=nj23-1&generation=23-1")
+            console.log(await response)
+            // console.log(data);
         } catch (err: any) {
             console.log(err)
             // toast.push(err.response.data.message, {
