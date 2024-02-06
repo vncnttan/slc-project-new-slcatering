@@ -5,6 +5,9 @@
 
     let usernameIcon: HTMLElement | null = null;
     let passwordIcon: HTMLElement | null = null;
+    let usernameInput = "";
+    let passwordInput = "";
+
     const usernameFocus = () => {
         usernameIcon?.classList.remove("text-gray-500")
         usernameIcon?.classList.add("text-red-sig")
@@ -26,7 +29,18 @@
 
     function onSubmit(e: SubmitEvent) {
         e.preventDefault();
-        toast.push("Hello World!")
+
+        if(usernameInput.length < 1 || passwordInput.length < 1) {
+            toast.push("All fields must be filled", {
+                theme: {
+                    "--toastBackground": "#B02000",
+                    "--toastColor": "#fff",
+                    "--toastProgressBackground": "#fff",
+                    "--toastProgressColor": "#B02000"
+                }
+            })
+        }
+
 
         console.log(e)
     }
@@ -53,6 +67,7 @@
                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-900 dark:focus:border-red-sig"
                            on:focus={usernameFocus}
                            on:blur={usernameBlur}
+                           bind:value="{usernameInput}"
                            placeholder="Username">
                 </div>
                 <div class="relative">
@@ -71,6 +86,7 @@
                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-900 dark:focus:border-red-sig"
                            on:focus={passwordFocus}
                            on:blur={passwordBlur}
+                           bind:value="{passwordInput}"
                            placeholder="Password">
                 </div>
                 <button type="submit" class="bg-red-sig p-2 text-white">
