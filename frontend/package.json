@@ -33,7 +33,5 @@
 		"vite": "^5.0.3"
 	},
 	"type": "module",
-	"dependencies": {
-		"@tsparticles/svelte": "^3.0.0"
-	}
+	"dependencies": {}
 }

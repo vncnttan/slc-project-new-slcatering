@@ -4,5 +4,25 @@
 
 
 .bg-red-sig {
-   background-color: #B02000;
+    background-color: #B02000;
+}
+
+.border-red-sig {
+    border-color: #B02000;
+}
+
+.outline-red-sig {
+    outline: none;
+}
+
+.outline-red-sig:focus {
+    outline: #B02000 solid 1px;
+}
+
+.text-red-sig {
+    color: #B02000;
+}
+
+.focused-text-red-sig:focus {
+    color: #B02000;
 }

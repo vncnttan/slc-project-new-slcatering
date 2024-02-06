@@ -6,7 +6,7 @@
 
 
     onMount(() => {
-        console.log(canvasObj)
+        // console.log(canvasObj)
         // Task:
         if(!canvasObj) return;
 
@@ -24,6 +24,6 @@
     })
 </script>
 
-<div class="h-screen w-screen absolute">
+<div class="h-screen w-screen absolute z-0">
     <canvas bind:this={canvasObj} id="particles-js" class="w-full h-full"></canvas>
 </div>
