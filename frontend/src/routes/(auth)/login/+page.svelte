@@ -2,6 +2,7 @@
     import Particle from "../../../components/Particle.svelte";
     import slcatering_logo from "$lib/assets/slcatering_logo.png";
     import {toast} from "@zerodevx/svelte-toast";
+    import axios from "axios";
 
     let usernameIcon: HTMLElement | null = null;
     let passwordIcon: HTMLElement | null = null;
@@ -27,10 +28,10 @@
         passwordIcon?.classList.add("text-gray-500")
     }
 
-    function onSubmit(e: SubmitEvent) {
+    async function onSubmit(e: SubmitEvent) {
         e.preventDefault();
 
-        if(usernameInput.length < 1 || passwordInput.length < 1) {
+        if (usernameInput.length < 1 || passwordInput.length < 1) {
             toast.push("All fields must be filled", {
                 theme: {
                     "--toastBackground": "#B02000",
@@ -41,8 +42,24 @@
             })
         }
 
-
-        console.log(e)
+        try {
+            const res = await axios.post("https://bluejack.binus.ac.id/lapi/api/Account/LogOn", {
+                username: usernameInput,
+                password: passwordInput
+            }, {
+               withCredentials: true
+            });
+        } catch (err: any) {
+            console.log(err)
+            // toast.push(err.response.data.message, {
+            //     theme: {
+            //         "--toastBackground": "#B02000",
+            //         "--toastColor": "#fff",
+            //         "--toastProgressBackground": "#fff",
+            //         "--toastProgressColor": "#B02000"
+            //     }
+            // })
+        }
     }
 </script>
 
@@ -95,7 +112,7 @@
             </form>
         </div>
     </div>
-    <footer class="w-screen h-screen flex justify-center place-items-end text-white z-20">
+    <footer class="w-screen h-screen flex justify-center place-items-end text-white z-10 absolute">
         <div class="mb-14 flex flex-col font-semibold place-items-center">
             <div>© Software Laboratory Catering</div>
             <div class="font-light">Developed from ❤ by NJ23-1, ML23-1.</div>
