@@ -2,20 +2,21 @@
     import Particle from "../../../components/Particle.svelte";
 </script>
 
-<div class="bg-red-sig">
+<div class="bg-red-sig w-screen h-screen">
     <Particle/>
-    <h1 class="text-2xl">Login Page</h1>
-    <a href="/">Home</a>
-
-    <div class="flex flex-col ">
-        <div class="flex flex-row gap-5">
-            Username:
-            <input type="text" name="Username" class="border-2" placeholder="NJ23-1"/>
-        </div>
-        <div class="flex flex-row gap-5">
-            Password:
-            <input type="text" name="Username" class="border-2" placeholder="NJ23-1"/>
+    <div class="w-full h-full flex justify-center place-items-center">
+        <div class="bg-white p-4">
+            <div class="flex flex-col gap-2">
+                <div class="flex flex-row">
+                    <input type="text" name="Username" class="border-2" placeholder="Username"/>
+                </div>
+                <div class="flex flex-row">
+                    <input type="text" name="Username" class="border-2" placeholder="Password"/>
+                </div>
+                <button>
+                    Login
+                </button>
+            </div>
         </div>
     </div>
-
 </div>
