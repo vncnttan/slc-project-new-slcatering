@@ -35,6 +35,23 @@
     background-color: #FF461E;
 }
 
+.responsive-container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+@media screen and ( min-width: 768px ) {
+    .responsive-container {
+        max-width: 90%;
+    }
+}
+
+@media screen and ( min-width: 1024px ) {
+    .responsive-container {
+        max-width: 80%;
+    }
+}
+
 @font-face {
     font-family: 'Inter';
     font-style: normal;
