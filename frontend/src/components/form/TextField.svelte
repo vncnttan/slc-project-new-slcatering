@@ -4,7 +4,6 @@
     let fieldIcon: HTMLElement | null = null;
 
     let fieldFocus = () => {
-        console.log(fieldIcon)
         fieldIcon?.classList.remove("text-gray-500")
         fieldIcon?.classList.add("text-red-sig")
     }

@@ -5,15 +5,16 @@
     import axios from "axios";
     import PasswordField from "../../../components/form/PasswordField.svelte";
     import TextField from "../../../components/form/TextField.svelte";
+    import Button from "../../../components/form/Button.svelte";
 
-    let passwordIcon: HTMLElement | null = null;
     let usernameInput = "";
     let passwordInput = "";
-
+    let isLoading = false;
 
     async function onSubmit(e: SubmitEvent) {
         e.preventDefault();
 
+        isLoading = true;
         if (usernameInput.length < 1 || passwordInput.length < 1) {
             toast.push("All fields must be filled", {
                 theme: {
@@ -23,17 +24,28 @@
                     "--toastProgressColor": "#B02000"
                 }
             })
+            isLoading = false;
+            return
         }
 
         try {
-            const res = await axios.post("https://bluejack.binus.ac.id/lapi/api/Account/LogOn", {
+            console.log("Waiting")
+            const token = await axios.post("https://bluejack.binus.ac.id/lapi/api/Account/LogOn", {
                 username: usernameInput,
                 password: passwordInput
             }, {
                 withCredentials: true
             });
 
-            console.log(res)
+            console.log(token.data)
+
+            const identity = await axios.get("https://bluejack.binus.ac.id/lapi/api/Account/Me", {
+                headers: {
+                    "Authorization": `Bearer ${token.data.access_token}`
+                }
+            });
+
+            console.log(identity)
         } catch {
             toast.push('Invalid email and password', {
                 theme: {
@@ -44,6 +56,8 @@
                 }
             })
         }
+
+        isLoading = false;
     }
 </script>
 
@@ -63,9 +77,7 @@
                           d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z"
                           clip-rule="evenodd"/>
                 </PasswordField>
-                <button type="submit" class="bg-red-sig p-2 text-white">
-                    Login
-                </button>
+                <Button value="Login" bind:loading={isLoading} />
             </form>
         </div>
     </div>
