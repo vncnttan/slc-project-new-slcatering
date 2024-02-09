@@ -8,6 +8,7 @@
     import Button from "../../../components/form/Button.svelte";
     import {browser} from "$app/environment";
     import {goto} from "$app/navigation";
+    import {env} from "$lib/env";
 
     let usernameInput = "";
     let passwordInput = "";
@@ -33,19 +34,18 @@
 
         try {
             // Get Token From Messier API
-            const token = await axios.post("https://bluejack.binus.ac.id/lapi/api/Account/LogOn", {
+            const token = await axios.post(`${env.API_BASE_URL}Account/LogOn`, {
                 username: usernameInput,
                 password: passwordInput
             }, {
                 withCredentials: true
             });
             // Get Identity From Messier API
-            const identity = await axios.get("https://bluejack.binus.ac.id/lapi/api/Account/Me", {
+            const identity = await axios.get(`${env.API_BASE_URL}Account/Me`, {
                 headers: {
                     "Authorization": `Bearer ${token.data.access_token}`
                 }
             });
-            console.log(identity)
 
             if(browser) {
                 // Set Cookies
