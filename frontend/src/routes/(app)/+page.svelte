@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     let menus = [{
         name: 'Burger',
         price: 10000,

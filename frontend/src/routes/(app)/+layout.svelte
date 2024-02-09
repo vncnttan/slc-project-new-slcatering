@@ -1,7 +1,11 @@
 <!--Navbar Here-->
-<script>
+<script lang="ts">
     import Typewriter from "../../components/Typewriter.svelte";
     import slcatering_logo from "$lib/assets/slcatering_logo.png";
+    import type {PageData} from "./$types";
+
+    export let data: PageData
+    console.log(data)
 </script>
 
 <div id="navbar-container" class="font-inter fixed w-full">
@@ -21,9 +25,11 @@
         </div>
         <div class="flex flex-row justify-end place-items-center gap-3">
             <div class="flex flex-col place-items-end">
+                {#if data.user}
                 <span class="text-xl font-extrabold">
-                    NJ23-1
+                    {data.user?.username}
                 </span>
+                {/if}
                 <div class="flex-row gap-1">
                     <span class="hidden xl:inline">
                         Mau makan apa hari ini?

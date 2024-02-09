@@ -6,6 +6,8 @@
     import PasswordField from "../../../components/form/PasswordField.svelte";
     import TextField from "../../../components/form/TextField.svelte";
     import Button from "../../../components/form/Button.svelte";
+    import {browser} from "$app/environment";
+    import {goto} from "$app/navigation";
 
     let usernameInput = "";
     let passwordInput = "";
@@ -16,6 +18,7 @@
 
         isLoading = true;
         if (usernameInput.length < 1 || passwordInput.length < 1) {
+            // Validate Username and Password is Filled
             toast.push("All fields must be filled", {
                 theme: {
                     "--toastBackground": "#B02000",
@@ -29,24 +32,35 @@
         }
 
         try {
-            console.log("Waiting")
+            // Get Token From Messier API
             const token = await axios.post("https://bluejack.binus.ac.id/lapi/api/Account/LogOn", {
                 username: usernameInput,
                 password: passwordInput
             }, {
                 withCredentials: true
             });
-
-            console.log(token.data)
-
+            // Get Identity From Messier API
             const identity = await axios.get("https://bluejack.binus.ac.id/lapi/api/Account/Me", {
                 headers: {
                     "Authorization": `Bearer ${token.data.access_token}`
                 }
             });
-
             console.log(identity)
-        } catch {
+
+            if(browser) {
+                // Set Cookies
+                document.cookie = `slcatering-name=${identity.data.Name}`
+                document.cookie = `slcatering-role=customer`
+                document.cookie = `slcatering-username=${identity.data.Username}`
+                document.cookie = `slcatering-access_token=${token.data.access_token}`
+                document.cookie = `slcatering-expires_in=${token.data.expires_in}`
+                document.cookie = `slcatering-refresh_token=${token.data.refresh_token}`
+            }
+
+            await goto("/")
+
+        } catch (err){
+            console.log("An error occured on Login: ", err)
             toast.push('Invalid email and password', {
                 theme: {
                     "--toastBackground": "#B02000",
