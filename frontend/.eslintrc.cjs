@@ -19,7 +19,7 @@ module.exports = {
 		es2017: true,
 		node: true
 	},
-	overrides: [
+	overrides: 	[
 		{
 			files: ['*.svelte'],
 			parser: 'svelte-eslint-parser',

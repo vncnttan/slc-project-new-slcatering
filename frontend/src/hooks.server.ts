@@ -11,17 +11,25 @@ export const handle: Handle = async ({event, resolve}) => {
         throw redirect(303, "/")
     }
 
-    if (event.locals.user.role !== "merchant") {
+    if (!event.locals.user) {
+        // Authenticate User Pages (Logged Out)
+        const userPages = ["/transactions"]
+        if(userPages.includes(event.url.pathname)) {
+            throw redirect(303, "/login")
+        }
+    }
+
+    if (event.locals.user?.role !== "merchant") {
         // Authenticate Merchant Pages
         if (event.url.pathname.startsWith("/merchant")) {
             throw redirect(303, "/")
         }
     }
 
-    if (event.locals.user.role !== "customer") {
+    if (event.locals.user?.role !== "customer") {
         // Authenticate User Pages
-        const userPages = ["/transactions"]
-        if(userPages.includes(event.url.pathname)) {
+        const customerPages = ["/transactions"]
+        if(customerPages.includes(event.url.pathname)) {
             throw redirect(303, "/")
         }
     }

@@ -8,7 +8,8 @@
     import Button from "../../../components/form/Button.svelte";
     import {browser} from "$app/environment";
     import {goto} from "$app/navigation";
-    import {env} from "$lib/env";
+
+    const base_url = import.meta.env.VITE_API_BASE_URL
 
     let usernameInput = "";
     let passwordInput = "";
@@ -34,14 +35,14 @@
 
         try {
             // Get Token From Messier API
-            const token = await axios.post(`${env.API_BASE_URL}Account/LogOn`, {
+            const token = await axios.post(`${base_url}Account/LogOn`, {
                 username: usernameInput,
                 password: passwordInput
             }, {
                 withCredentials: true
             });
             // Get Identity From Messier API
-            const identity = await axios.get(`${env.API_BASE_URL}Account/Me`, {
+            const identity = await axios.get(`${base_url}Account/Me`, {
                 headers: {
                     "Authorization": `Bearer ${token.data.access_token}`
                 }
