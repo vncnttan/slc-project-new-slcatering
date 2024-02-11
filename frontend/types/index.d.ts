@@ -23,3 +23,11 @@ export interface ParticleType {
     _getDegInRad: (v1: VectorType, v2: VectorType) => number;
     moveTo: (target: VectorType) => void;
 }
+
+export interface LocalType extends App.Locals {
+    user: {
+        name: string;
+        username: string;
+        token: string;
+    } | null;
+}
