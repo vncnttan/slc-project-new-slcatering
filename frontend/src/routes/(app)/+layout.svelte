@@ -67,5 +67,6 @@
 <style>
     #navbar-container {
         background-image: linear-gradient(rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.5));
+        z-index: 40;
     }
 </style>

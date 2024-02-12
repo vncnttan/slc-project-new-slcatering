@@ -1,4 +1,7 @@
 <script lang="ts">
+    import MenuCard from "../../components/homepage/MenuCard.svelte";
+    import TopCustomer from "../../components/homepage/TopCustomer.svelte";
+
     let menus = [{
         name: 'Burger',
         price: 10000,
@@ -14,39 +17,31 @@
     }];
 </script>
 
-<div class="responsive-container p-10 !my-8 bg-red-sig-gradient rounded-xl flex flex-col gap-16 font-inter">
-    <div class="text-2xl text-white font-semibold">
-        Today's Menu
+<div class="!my-8 responsive-container flex flex-col gap-16">
+    <div class="p-10 bg-red-sig-gradient rounded-xl flex flex-col gap-16 font-inter">
+        <div class="text-2xl text-white font-semibold">
+            Today's Menu
+        </div>
+        <div class="text-sm md:text-lg text-white font-semibold flex flex-row gap-2 flex-wrap">
+            {#each menus as menu}
+                <MenuCard menu={menu}/>
+            {/each}
+        </div>
     </div>
-    <div class="text-lg text-white font-semibold flex flex-row gap-2 flex-wrap">
-        {#each menus as menu}
-            <div class="bg-white text-black w-96 rounded-md flex flex-col gap-3 p-6">
-                <div class="flex flex-row justify-between">
-                    <div class="flex flex-col">
-                        <div>
-                            {menu.name}
-                        </div>
-                        <div class="text-base text-gray-400 font-normal">
-                            {menu.merchant}
-                        </div>
-                    </div>
-                    <div>
-                        {menu.price}
-                    </div>
-                </div>
-                <div class="flex flex-row w-full justify-end gap-2">
-                    <button class="bg-gray-400 text-normal font-normal text-white rounded-xl p-2 w-24">Details</button>
-                    <button class="bg-orange-sig text-normal font-normal text-white rounded-xl p-2 w-24">Order</button>
-                </div>
+
+    <div class="flex flex-col gap-8 m-4 md:m-0">
+        <div class="text-2xl font-semibold">
+            Leaderboards
+        </div>
+        <div class="grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-4">
+            <div class="flex flex-col bg-gray-300 rounded-2xl">
+                <div class="text-xl font-semibold p-4 text-center">Top Customer</div>
+                <TopCustomer />
             </div>
-        {/each}
+            <div class="flex flex-col bg-gray-300">
+                <div class="text-xl font-semibold">Most Popular Menu</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="h-96 bg-red-400">
-asdf
-</div>
-
-<div class="h-96 bg-red-400">
-asdf
 </div>
