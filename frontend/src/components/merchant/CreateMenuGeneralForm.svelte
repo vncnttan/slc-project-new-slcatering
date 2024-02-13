@@ -19,7 +19,7 @@
             </label>
         </div>
         <div class="relative z-0 w-full mb-5 group md:me-4 lg:me-12">
-            <input type="number" name="floating_first_name" id="floating_first_name"
+            <input type="number" name="floating_first_name" id="floating_first_name" min="0"
                    class="block py-2.5 px-0 w-full text-base text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
                    placeholder=" " required/>
             <label for="floating_first_name"
@@ -32,7 +32,7 @@
                 Rp.
             </div>
             <div class="relative z-0 w-full group">
-                <input type="number" name="floating_last_name" id="floating_last_name"
+                <input type="number" name="floating_last_name" id="floating_last_name" min="0"
                        class="block py-2.5 px-0 w-full text-base text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
                        placeholder=" " required/>
                 <label for="floating_last_name"
