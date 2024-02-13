@@ -33,7 +33,7 @@
         <div class="text-2xl font-semibold">
             Leaderboards
         </div>
-        <div class="grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-8">
             <div class="flex flex-col bg-gray-300 rounded-2xl">
                 <div class="text-xl font-semibold p-4 text-center">Top Customer</div>
                 <TopCustomer />

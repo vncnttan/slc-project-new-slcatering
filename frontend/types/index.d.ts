@@ -28,6 +28,7 @@ export interface LocalType extends App.Locals {
     user: {
         name: string;
         username: string;
+        role: string;
         token: string;
     } | null;
 }

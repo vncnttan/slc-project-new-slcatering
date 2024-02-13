@@ -12,22 +12,36 @@
         <div class="h-full">
             <img src="{slcatering_logo}" alt="SLCatering Logo" class="h-20 w-64 object-contain"/>
         </div>
-        <div class="hidden md:flex flex-row justify-center place-items-center font-karla">
-            <div class="flex flex-row h-fit place-items-center bg-gray-300 rounded-full text-lg">
-                <div class="w-32 lg:w-40 xl:w-64 rounded-full bg-orange-sig text-white h-full text-center p-2">
-                    Home
+        {#if data.user }
+            {#if data.user.role === "customer"}
+                <div class="hidden md:flex flex-row justify-center place-items-center font-karla">
+                    <div class="flex flex-row h-fit place-items-center bg-gray-300 rounded-full text-lg">
+                        <div class="w-32 lg:w-40 xl:w-64 rounded-full bg-orange-sig text-white h-full text-center p-2">
+                            Home
+                        </div>
+                        <div class="w-32 lg:w-40 xl:w-64 rounded-full text-black h-full text-center p-2">
+                            History
+                        </div>
+                    </div>
                 </div>
-                <div class="w-32 lg:w-40 xl:w-64 rounded-full text-black h-full text-center p-2">
-                    History
+            {/if}
+            {#if data.user?.role === "merchant"}
+                <div class="hidden md:flex justify-center place-items-center">
+                    <a href="/merchant" class="bg-orange-sig p-4 text-white rounded-md">Merchant Dashboard</a>
                 </div>
+            {/if}
+        {:else}
+            <div class="md:block hidden">
             </div>
-        </div>
+        {/if}
         <div class="flex flex-row justify-end place-items-center gap-3">
             <div class="flex flex-col place-items-end">
                 {#if data.user}
+                    <div class="flex flex-row gap-2">
                     <span class="text-xl font-extrabold">
                         {data.user?.username}
                     </span>
+                    </div>
                 {:else}
                     <div class="flex flex-row gap-1 mb-1">
                         <a href="/login" class="py-1 px-3 bg-orange-sig text-white rounded-md">

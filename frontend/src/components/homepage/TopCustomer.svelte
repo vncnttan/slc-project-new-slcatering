@@ -41,7 +41,7 @@
             <tr class="odd:bg-gray-200">
                 <th scope="row" class="pl-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     <div class="w-10 h-10 flex flex-row justify-center place-items-center rounded-full font-bold
-                              {customer.rank === 1 ? 'bg-yellow-500' : customer.rank === 2 ? 'bg-gray-400' : customer.rank === 3 ? 'bg-orange-700' : '' }">
+                              {customer.rank === 1 ? 'bg-first-place' : customer.rank === 2 ? 'bg-gray-400' : customer.rank === 3 ? 'bg-third-place' : '' }">
                         {customer.rank}
                     </div>
                 </th>

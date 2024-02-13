@@ -51,7 +51,7 @@
             if(browser) {
                 // Set Cookies
                 document.cookie = `slcatering-name=${identity.data.Name}`
-                document.cookie = `slcatering-role=customer`
+                document.cookie = `slcatering-role=merchant`
                 document.cookie = `slcatering-username=${identity.data.Username}`
                 document.cookie = `slcatering-access_token=${token.data.access_token}`
                 document.cookie = `slcatering-expires_in=${token.data.expires_in}`
