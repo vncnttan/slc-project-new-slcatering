@@ -34,8 +34,8 @@
 
 </script>
 
-<div class="w-full mx-auto flex flex-col gap-4">
-    <div class="grid md:grid-cols-2 md:gap-6">
+<div class="w-full mx-auto flex flex-col gap-8 md:gap-4">
+    <div class="grid md:grid-cols-2 md:gap-6 gap-2">
         <div class="relative z-0 w-full group">
             <label for="floating_variant_name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Variant
                 name</label>
@@ -61,7 +61,7 @@
         </div>
     </div>
     {#each variants as variant, index}
-        <div class="grid md:grid-cols-2 md:gap-6">
+        <div class="grid md:grid-cols-2 md:gap-6 gap-2">
             <div class="relative z-0 w-full group">
                 <input type="text" name="floating_variant_name" id="floating_variant_name"
                        class="block w-full p-2.5
