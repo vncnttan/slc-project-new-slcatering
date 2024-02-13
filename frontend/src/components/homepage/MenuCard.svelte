@@ -3,13 +3,17 @@
         name: string;
         price: number;
         merchant: string;
+        date: string;
     }
 
     export let menu: MenuType;
 </script>
 
 
-<div class="bg-white text-black card-responsive-container-width rounded-md flex flex-col gap-3 p-3 md:p-4 2xl:p-6">
+<div class="bg-white text-black card-responsive-container-width rounded-md flex flex-col p-3 md:p-4 2xl:p-6">
+    <div class="text-xs md:text-sm text-black font-normal">
+        {menu.date}
+    </div>
     <div class="flex flex-row justify-between">
         <div class="flex flex-col">
             <div>
@@ -20,10 +24,10 @@
             </div>
         </div>
         <div>
-            {menu.price}
+            Rp. {menu.price}
         </div>
     </div>
-    <div class="flex flex-row w-full justify-end gap-1 md:gap-2">
+    <div class="flex flex-row w-full justify-end gap-1 md:gap-2 mt-4">
         <button class="bg-gray-400 text-normal font-normal text-white rounded-xl p-1 md:p-2 w-20 md:w-24">Details
         </button>
         <button class="bg-orange-sig text-normal font-normal text-white rounded-xl p-1 md:p-2 w-20 md:w-24">Order

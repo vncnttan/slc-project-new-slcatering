@@ -39,9 +39,9 @@
     ]
 </script>
 
-<div class="relative overflow-x-auto sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+<div class="relative overflow-x-auto sm:rounded-2xl rounded-md">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+        <thead class="text-sm text-gray-800 uppercase bg-gray-300">
         <tr>
             <th scope="col" class="px-6 py-3">
                 Product name
@@ -59,8 +59,8 @@
         </thead>
         <tbody>
         {#each products as product}
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <tr class="odd:bg-gray-200 even:bg-gray-300 even border-b">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                     {product.name}
                 </th>
                 <td class="px-6 py-4 hidden md:block">
@@ -72,7 +72,7 @@
                 </td>
                 <td class="px-6 py-4">
                     <a href="/merchant/{product.product_id}"
-                       class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Details</a>
+                       class="font-medium text-blue-600 hover:underline">Details</a>
                 </td>
             </tr>
         {/each}
