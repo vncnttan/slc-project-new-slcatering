@@ -1,6 +1,7 @@
 <script lang="ts">
     import MenuCard from "../../components/homepage/MenuCard.svelte";
     import TopCustomer from "../../components/homepage/TopCustomer.svelte";
+    import TopMenu from "../../components/homepage/TopMenu.svelte";
 
     let menus = [{
         name: 'Burger',
@@ -18,7 +19,7 @@
 </script>
 
 <div class="!my-8 responsive-container flex flex-col gap-16">
-    <div class="p-10 bg-red-sig-gradient rounded-xl flex flex-col gap-16 font-inter">
+    <div class="p-4 md:p-6 2xl:p-10 bg-red-sig-gradient rounded-xl flex flex-col gap-16 font-inter">
         <div class="text-2xl text-white font-semibold">
             Today's Menu
         </div>
@@ -38,8 +39,9 @@
                 <div class="text-xl font-semibold p-4 text-center">Top Customer</div>
                 <TopCustomer />
             </div>
-            <div class="flex flex-col bg-gray-300">
-                <div class="text-xl font-semibold">Most Popular Menu</div>
+            <div class="flex flex-col bg-gray-300 rounded-2xl">
+                <div class="text-xl font-semibold p-4 text-center">Most Popular Menu</div>
+                <TopMenu />
             </div>
         </div>
     </div>

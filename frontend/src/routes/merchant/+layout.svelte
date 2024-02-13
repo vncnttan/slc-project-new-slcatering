@@ -1,6 +1,8 @@
 <script lang="ts">
     import slcatering_logo from "$lib/assets/slcatering_logo.png";
     import {browser} from "$app/environment";
+    import {onMount} from "svelte";
+    import {page} from "$app/stores";
 
     let drawer: HTMLElement | null = null;
     let isDrawerOpen = false;
@@ -16,58 +18,63 @@
         }
     }
 
+    onMount(() => {
+        return page.subscribe(() => {
+            if (browser) {
+                document.body.style.overflow = 'auto';
+            }
+        });
+    })
+
 </script>
 
 <div
         bind:this={drawer}
         class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-        <a href="/" class="flex items-center ps-2.5 pe-1 mb-5">
-            <img src="{slcatering_logo}" alt="SLCatering Logo" class="h-24 object-cover"/>
-        </a>
-        <ul class="space-y-2 font-medium">
-            <li>
-                <div class="flex flex-col px-2">
-                    <div>
-                        NJuice Catering
-                    </div>
-                    <div>
-                        NJ23-1
-                    </div>
-                </div>
-            </li>
-            <li>
-                <a href="/merchant"
-                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                        <path d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z"/>
-                    </svg>
-                    <span class="ms-3">Today's Menu</span>
+        <div class="flex flex-col justify-between font-medium h-full">
+            <div>
+                <a href="/" class="flex items-center ps-2.5 pe-1 mb-5">
+                    <img src="{slcatering_logo}" alt="SLCatering Logo" class="h-24 object-cover"/>
                 </a>
-            </li>
-            <li>
-                <a href="/merchant/create"
-                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                        <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
-                        <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
-                    </svg>
-                    <span class="ms-3">Create Menu</span>
-                </a>
-            </li>
-            <li>
-                <a href="/merchant/history"
-                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                        <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
-                    </svg>
-                    <span class="flex-1 ms-3 whitespace-nowrap">History Transaction</span>
-                </a>
-            </li>
-            <li>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="/merchant"
+                           class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                 viewBox="0 0 18 20">
+                                <path d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z"/>
+                            </svg>
+                            <span class="ms-3">Today's Menu</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/merchant/create"
+                           class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                 viewBox="0 0 22 21">
+                                <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
+                                <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
+                            </svg>
+                            <span class="ms-3">Create Menu</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/merchant/history"
+                           class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                 viewBox="0 0 20 18">
+                                <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
+                            </svg>
+                            <span class="flex-1 ms-3 whitespace-nowrap">History Transaction</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex flex-col gap-2">
                 <form method="POST" action="/logout">
                     <button type="submit"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -79,8 +86,16 @@
                         <span class="flex-1 ms-3 whitespace-nowrap">Logout</span>
                     </button>
                 </form>
-            </li>
-        </ul>
+                <div class="flex flex-col px-2 font-inter">
+                    <div class="font-bold text-xl">
+                        NJuice Catering
+                    </div>
+                    <div>
+                        njuice_catering@gmail.com
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

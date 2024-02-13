@@ -9,7 +9,7 @@
 </script>
 
 
-<div class="bg-white text-black card-responsive-container-width rounded-md flex flex-col gap-3 p-3 md:p-6">
+<div class="bg-white text-black card-responsive-container-width rounded-md flex flex-col gap-3 p-3 md:p-4 2xl:p-6">
     <div class="flex flex-row justify-between">
         <div class="flex flex-col">
             <div>

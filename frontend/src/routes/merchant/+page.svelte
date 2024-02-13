@@ -1,5 +1,4 @@
 <script>
-    import MenuCard from "../../components/homepage/MenuCard.svelte";
     import AdminMenuCard from "../../components/homepage/AdminMenuCard.svelte";
 
     let menus = [{
