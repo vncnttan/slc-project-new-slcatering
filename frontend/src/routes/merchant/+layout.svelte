@@ -20,13 +20,12 @@
     }
 
     onMount(() => {
-        // if (browser) {
-        // }
-        console.log(location)
         return page.subscribe(() => {
             if (browser) {
-                document.body.style.overflow = 'auto';
                 location = window.location.pathname;
+                if(isDrawerOpen){
+                    toggleDrawer();
+                }
             }
         });
     })
@@ -63,7 +62,7 @@
                     {#each sidebar_options as option}
                         <li>
                             <a href="{option.link}"
-                               class="flex items-center p-2 h-14 text-gray-900 group
+                               class="flex items-center py-2 h-14 text-gray-900 group px-6
                                 {location === option.link ? 'bg-red-sig !text-white' : 'hover:bg-red-100'}">
                                 <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75
                                     {location === option.link ? 'bg-red-sig !text-white' : 'group-hover:text-red-900'}"
