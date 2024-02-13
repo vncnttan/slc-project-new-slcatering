@@ -6,6 +6,7 @@
 
     let drawer: HTMLElement | null = null;
     let isDrawerOpen = false;
+    let location: string = '';
 
     let toggleDrawer = () => {
         drawer?.classList.toggle('-translate-x-full');
@@ -19,14 +20,25 @@
     }
 
     onMount(() => {
+        // if (browser) {
+        // }
+        console.log(location)
         return page.subscribe(() => {
             if (browser) {
                 document.body.style.overflow = 'auto';
+                location = window.location.pathname;
             }
         });
     })
 
     let sidebar_options = [
+        {
+            name: "History Transaction",
+            icon: [
+                "M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z"
+            ],
+            link: "/merchant"
+        },
         {
             name: "Create Menu",
             icon: [
@@ -35,54 +47,50 @@
             ],
             link: "/merchant/create"
         },
-        {
-            name: "History Transaction",
-            icon: [
-                "M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z"
-            ],
-            link: "/merchant/history"
-        }
     ]
 </script>
 
 <div
         bind:this={drawer}
         class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
-    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+    <div class="h-full py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
         <div class="flex flex-col justify-between font-medium h-full">
             <div>
-                <a href="/" class="flex items-center ps-2.5 pe-1 mb-5">
+                <a href="/" class="flex items-center ps-5 pe-2 mb-5">
                     <img src="{slcatering_logo}" alt="SLCatering Logo" class="h-24 object-cover"/>
                 </a>
-                <ul class="space-y-2">
+                <ul class="">
                     {#each sidebar_options as option}
                         <li>
                             <a href="{option.link}"
-                               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                               class="flex items-center p-2 h-14 text-gray-900 group
+                                {location === option.link ? 'bg-red-sig !text-white' : 'hover:bg-red-100'}">
+                                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75
+                                    {location === option.link ? 'bg-red-sig !text-white' : 'group-hover:text-red-900'}"
                                      aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                      viewBox="0 0 18 20">
                                     {#each option.icon as icon_path}
                                         <path d="{icon_path}"/>
                                     {/each}
                                 </svg>
-                                <span class="ms-3">{option.name}</span>
+                                <span class="ms-3
+                                {location === option.link ? 'bg-red-sig !text-white' : 'group-hover:text-red-900'}">{option.name}</span>
                             </a>
                         </li>
 
                     {/each}
                 </ul>
             </div>
-            <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-2 px-2">
                 <form method="POST" action="/logout">
                     <button type="submit"
-                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-red-100 group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-red-900"
                              aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/>
                         </svg>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Logout</span>
+                        <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-red-900">Logout</span>
                     </button>
                 </form>
                 <div class="flex flex-col px-2 font-inter">

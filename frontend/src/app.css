@@ -22,6 +22,10 @@
     color: #B02000;
 }
 
+.hover\:text-red-sig:hover {
+    color: #B02000;
+}
+
 .focused-text-red-sig:focus {
     color: #B02000;
 }
