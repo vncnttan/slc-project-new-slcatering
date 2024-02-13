@@ -49,15 +49,15 @@
 }
 
 .bg-first-place {
-    background-color: #FFC774;
+    background-color: #FFD700;
 }
 
 .bg-second-place {
-    background-color: #9CA3AF;
+    background-color: #C0C0C0;
 }
 
 .bg-third-place {
-    background-color: #FF8F60;
+    background-color: #ee803b;
 }
 
 @media screen and ( min-width: 768px ) {
