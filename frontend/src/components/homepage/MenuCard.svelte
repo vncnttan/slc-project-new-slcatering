@@ -28,8 +28,10 @@
         </div>
     </div>
     <div class="flex flex-row w-full justify-end gap-1 md:gap-2 mt-4">
-        <button class="bg-gray-400 text-normal font-normal text-white rounded-xl p-1 md:p-2 w-20 md:w-24">Details
-        </button>
+        <a href="/product-detail/{menu.name}">
+            <button class="bg-gray-400 text-normal font-normal text-white rounded-xl p-1 md:p-2 w-20 md:w-24">Details
+            </button>
+        </a>
         <button class="bg-orange-sig text-normal font-normal text-white rounded-xl p-1 md:p-2 w-20 md:w-24">Order
         </button>
     </div>
