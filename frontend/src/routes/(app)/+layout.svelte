@@ -3,8 +3,53 @@
     import Typewriter from "../../components/Typewriter.svelte";
     import slcatering_logo from "$lib/assets/slcatering_logo.png";
     import type {PageData} from "./$types";
+    import {page} from "$app/stores";
+    import {onMount} from "svelte";
+    import {browser} from "$app/environment";
+    import {goto} from "$app/navigation";
 
     export let data: PageData
+
+    let menus = [
+        {
+            name: "Home",
+            link: "/"
+        },
+        {
+            name: "History",
+            link: "/history"
+        }
+    ]
+
+    let floatingDiv : HTMLElement | null = null;
+
+    let navigateNavbar = (destinationLink: string) => {
+        if(destinationLink === '/'){
+            floatingDiv?.classList.add('home-selected-translate')
+            floatingDiv?.classList.remove('history-selected-translate')
+        } else {
+            floatingDiv?.classList.add('history-selected-translate')
+            floatingDiv?.classList.remove('home-selected-translate')
+        }
+        goto(destinationLink)
+    }
+
+    let location: string | null = null;
+    onMount(() => {
+        return page.subscribe(() => {
+            if (browser) {
+                location = window.location.pathname;
+
+                if(location === '/'){
+                    floatingDiv?.classList.add('home-selected-translate')
+                    floatingDiv?.classList.remove('history-selected-translate')
+                } else {
+                    floatingDiv?.classList.add('history-selected-translate')
+                    floatingDiv?.classList.remove('home-selected-translate')
+                }
+            }
+        });
+    })
 </script>
 
 <div id="navbar-container" class="font-inter fixed w-full">
@@ -14,12 +59,16 @@
         </div>
         {#if data.user && data.user.role === "customer"}
             <div class="hidden md:flex flex-row justify-center place-items-center font-karla">
-                <div class="flex flex-row h-fit place-items-center bg-gray-300 rounded-full text-lg">
-                    <div class="w-32 lg:w-40 xl:w-64 rounded-full bg-orange-sig text-white h-full text-center p-2">
-                        Home
-                    </div>
-                    <div class="w-32 lg:w-40 xl:w-64 rounded-full text-black h-full text-center p-2">
-                        History
+                <div class="flex flex-row h-fit relative splace-items-center bg-gray-300 rounded-full text-lg">
+                    {#each menus as menu}
+                        <button on:click={() => navigateNavbar(menu.link)}
+                                class="z-20 w-32 lg:w-40 xl:w-64 rounded-full h-full text-center p-2
+                                {menu.link === location ? 'selected-navbar-btn' : ''}">
+                            {menu.name}
+                        </button>
+                    {/each}
+
+                    <div bind:this={floatingDiv} class="absolute z-0 w-32 right-1/2 translate-x-1/2 lg:w-40 xl:w-64 rounded-full h-full text-center p-2 floating-div-toggle">
                     </div>
                 </div>
             </div>
@@ -84,4 +133,18 @@
         background-image: linear-gradient(rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.5));
         z-index: 40;
     }
+
+    .floating-div-toggle {
+        background-color: #FF461E;
+        transition: all 0.5s ease-out;
+    }
+
+    .selected-navbar-btn {
+        font-weight: bolder;
+        color: white;
+    }
+
+
+
+
 </style>

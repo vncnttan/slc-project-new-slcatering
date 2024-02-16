@@ -42,22 +42,28 @@
 .bg-orange-sig {
     background-color: #FF461E;
 }
+.home-selected-translate {
+    transform: translate(0%, 0);
+}
 
+.history-selected-translate {
+    transform: translate(100%, 0);
+}
 .responsive-container {
     max-width: 100%;
     margin: 0 auto;
 }
 
 .bg-first-place {
-    background-color: #FFD700;
+    background-image: linear-gradient(90deg, #FFD700, #FFA500);
 }
 
 .bg-second-place {
-    background-color: #C0C0C0;
+    background-image: linear-gradient(90deg, #C0C0C0, #808080);
 }
 
 .bg-third-place {
-    background-color: #ee803b;
+    background-image: linear-gradient(90deg, #EE803B, #F7A325);
 }
 
 @media screen and ( min-width: 768px ) {
