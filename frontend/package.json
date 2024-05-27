@@ -36,7 +36,9 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@types/siema": "^1.4.11",
 		"axios": "^1.6.7",
-		"dotenv": "^16.4.1"
+		"dotenv": "^16.4.1",
+		"siema": "^1.5.1"
 	}
 }

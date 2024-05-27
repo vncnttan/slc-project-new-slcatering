@@ -5,6 +5,7 @@
 
     let menu = {
         name: 'Nasi Bakar',
+        image: 'https://cdn1-production-images-kly.akamaized.net/sr3YLDyaBYz0wpfbsAl46v9rOaA=/0x55:660x427/1200x675/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/1259270/original/056641600_1465465905-nasi-bakar-palekko.jpg',
         price: '10.000',
         merchant: 'Catering Vasang',
         date: '12 September 2023'
@@ -17,6 +18,7 @@
     })
 </script>
 
+<!--TODO: Responsive-->
 <div class="w-full h-screen flex flex-col md:flex-row">
     <button on:click={()=>{goto(previousPage)}}
             class="flex flex-row gap-3 place-items-center mt-5 ms-5 py-3 px-5 w-fit hover:bg-gray-200 rounded font-semibold relative md:absolute">
@@ -27,16 +29,19 @@
         Back to history
     </button>
 
-    <div class="py-5 my-5 md:my-0 h-screen flex-grow flex flex-col justify-center place-items-center bg-gray-100">
+    <div class="pb-5 pt-12 my-5 md:my-0 h-screen flex-grow flex flex-col justify-center place-items-center bg-gray-100">
         <div class="responsive-cols flex flex-col gap-12 font-inter">
-            <div class="flex flex-col gap-1">
-                <div class="text-black text-base font-bold">
+            <div class="flex flex-col">
+                {#if menu.image}
+                    <img src={menu.image} alt={menu.name} class="mb-8 h-40 w-40 my-2 rounded-md object-cover"/>
+                {/if}
+                <div class="text-black text-xs">
                     {menu.date}
                 </div>
-                <div class="text-red-sig text-7xl font-semibold">
+                <div class="text-red-sig text-5xl font-semibold">
                     {menu.name}
                 </div>
-                <div class="text-gray-400 text-xl font-bold">
+                <div class="text-gray-800 text-lg">
                     {menu.merchant}
                 </div>
             </div>
@@ -48,11 +53,6 @@
                     * Price may vary depends on your variant and merchant
                 </div>
             </div>
-
-            <button class="font-bold bg-red-sig-gradient text-white w-fit p-4 rounded-md"
-                    on:click={()=>{goto("/")}}>
-                Go to today's menu
-            </button>
         </div>
     </div>
 
