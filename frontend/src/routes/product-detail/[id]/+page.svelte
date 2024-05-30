@@ -26,38 +26,42 @@
              class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"/>
         </svg>
-        Back to history
+        Back to {previousPage === '/' ? 'Home' : previousPage}
     </button>
 
     <div class="pb-5 pt-12 my-5 md:my-0 h-screen flex-grow flex flex-col justify-center place-items-center bg-gray-100">
         <div class="responsive-cols flex flex-col gap-12 font-inter">
-            <div class="flex flex-col">
+            <div class="flex flex-row md:flex-col gap-6">
                 {#if menu.image}
-                    <img src={menu.image} alt={menu.name} class="mb-8 h-40 w-40 my-2 rounded-md object-cover"/>
+                    <img src={menu.image} alt={menu.name} class="h-40 w-40 md:h-72 md:w-72 my-2 rounded-md object-cover"/>
                 {/if}
-                <div class="text-black text-xs">
-                    {menu.date}
-                </div>
-                <div class="text-red-sig text-5xl font-semibold">
-                    {menu.name}
-                </div>
-                <div class="text-gray-800 text-lg">
-                    {menu.merchant}
+                <div class="flex flex-col">
+                    <div class="text-black text-xs">
+                        {menu.date}
+                    </div>
+                    <div class="text-red-sig text-5xl font-semibold">
+                        {menu.name}
+                    </div>
+                    <div class="text-gray-800 text-lg">
+                        {menu.merchant}
+                    </div>
+
+                    <div class="mt-4 md:mt-12 flex flex-col gap-1">
+                        <div class="font-semibold text-3xl">
+                            Rp. {menu.price}
+                        </div>
+                        <div class="text-xs">
+                            * Price may vary depends on your variant and merchant
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="flex flex-col gap-1">
-                <div class="font-semibold text-3xl">
-                    Rp. {menu.price}
-                </div>
-                <div class="text-xs">
-                    * Price may vary depends on your variant and merchant
-                </div>
-            </div>
+
         </div>
     </div>
 
     <div class="h-screen flex-grow flex flex-col justify-center place-items-center">
-        <div class="overflow-y-auto my-24 responsive-cols w-full flex flex-col justify-center place-items-center">
+        <div class="overflow-y-auto md:my-24 responsive-cols w-full flex flex-col justify-center place-items-center">
             <div class="h-full w-full">
                 <CustomerList/>
             </div>

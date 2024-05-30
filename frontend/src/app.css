@@ -59,11 +59,11 @@
 }
 
 .bg-second-place {
-    background-image: linear-gradient(90deg, #C0C0C0, #808080);
+    background-image: linear-gradient(90deg, #9b87b0, #6e29b6);
 }
 
 .bg-third-place {
-    background-image: linear-gradient(90deg, #EE803B, #F7A325);
+    background-image: linear-gradient(90deg, #97bac0, #1f7c85);
 }
 
 @media screen and ( min-width: 768px ) {

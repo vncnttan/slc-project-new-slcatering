@@ -71,7 +71,7 @@
                     {product.status}
                 </td>
                 <td class="px-6 py-4">
-                    <a href="/merchant/product-detail/{product.product_id}"
+                    <a href="/product-detail/{product.product_id}"
                        class="font-medium text-blue-600 hover:underline">Details</a>
                 </td>
             </tr>

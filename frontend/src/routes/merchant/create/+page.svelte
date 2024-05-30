@@ -1,6 +1,7 @@
 <script>
     import CreateMenuGeneralForm from "../../../components/merchant/CreateMenuGeneralForm.svelte";
     import CreateMenuVariantForm from "../../../components/merchant/CreateMenuVariantForm.svelte";
+    import ThumbnailForm from "../../../components/merchant/ThumbnailForm.svelte";
 </script>
 
 <div class="flex flex-col mx-4 !mt-10 gap-12 responsive-container bg-gray-custom p-8 rounded-2xl">
@@ -8,6 +9,12 @@
         Schedule Catering
     </div>
     <form class="flex flex-col gap-6">
+        <div class="bg-white  rounded-md flex flex-col gap-4">
+            <div class="font-bold">
+                Thumbnail
+            </div>
+            <ThumbnailForm/>
+        </div>
         <div class="bg-white  rounded-md flex flex-col gap-4">
             <div class="font-bold">
                 General
