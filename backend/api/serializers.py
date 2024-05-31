@@ -9,10 +9,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username',
                   'id',
-                  'password',
-                  'email',
-                  'is_activated',
-                  'created_at',
                   'role')
     
     def to_representation(self, instance):
@@ -37,12 +33,13 @@ class CateringSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'title',
+            'imageLink',
             'price',
-            'created_at',
             'created_by',
             'catering_variants',
             'is_closed',
             'quantity'
+            'created_at',
         )
     
     def create(self, validated_data):
@@ -53,7 +50,6 @@ class CateringSerializer(serializers.ModelSerializer):
         return catering
 
 
-
 class OrderCateringSerializer(serializers.ModelSerializer):
     class Meta:
         model = Catering
@@ -61,6 +57,7 @@ class OrderCateringSerializer(serializers.ModelSerializer):
             'id',
             'title',
             'price',
+            'imageLink'
         )
 
 class OrderUserSerializer(serializers.ModelSerializer):
@@ -69,7 +66,7 @@ class OrderUserSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'username',
-            'email'
+            'role'
         )
 
 

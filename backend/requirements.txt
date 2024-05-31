@@ -8,3 +8,4 @@ pyjwt
 django-sslserver==0.22
 drf-yasg==1.21.7
 pyyaml==6.0.1
+requests=2.32.3

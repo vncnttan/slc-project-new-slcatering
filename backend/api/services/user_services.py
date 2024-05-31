@@ -16,8 +16,6 @@ def get_spesific_user_by_id(id):
 def get_spesific_user_by_username(username):
     try:
         user = User.objects.get(username=username)
-        if user.is_activated == False:
-            return None
         return user
     except User.DoesNotExist:
         return None
