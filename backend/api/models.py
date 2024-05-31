@@ -4,21 +4,19 @@ import uuid
 # Create your models here.
 class User(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
-    username = models.CharField(max_length=30, blank=False, unique=True)
-    password = models.CharField(max_length=200, blank=False)
-    email = models.EmailField(max_length=100, blank=False, unique=True)
-    is_activated = models.BooleanField(blank=False)
-    created_at = models.DateTimeField(blank=False)
-    role = models.CharField(max_length=50, blank=False, default="user")
+    username = models.CharField(max_length=30, blank=False, unique=True) # ex. NJ23-1 / Nama Toko
+    role = models.CharField(max_length=50, blank=False, default="user")  # customer / merchant
+    access_token = models.CharField(max_length=255, blank=True) # JWT Token generated, not from Messier
 
 class Catering(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     title = models.CharField(max_length=200, blank=False)
+    imageLink = models.CharField(max_length=255, blank=False)
     price = models.IntegerField(blank=False)
-    created_at = models.DateTimeField(blank=False)
     created_by = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='caterings')
     is_closed = models.BooleanField(default=False, blank=False)
-    quantity = models.IntegerField(default=0, blank=False)
+    quantity = models.IntegerField(default=0, blank=False) # maksudnya stock barang
+    created_at = models.DateTimeField(blank=False)
 
 class VariantCaterings(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)

@@ -22,10 +22,6 @@ from drf_yasg import openapi
 
 # Create your views here.
 
-# @api_view(['POST'])
-# def login(request):
-
-
 @swagger_auto_schema(
     method='get',
     security=[{'Bearer': []}],
@@ -109,6 +105,7 @@ def get_all_user(request):
 )
 @api_view(['POST'])
 def register(request):
+    # On Progress: Change to LoginView using Messier API
     try:
         data = JSONParser().parse(request)
         if data['username'] == "" or data['password'] == '' or data['email'] == "" or data['confirm_password'] == '':
