@@ -9,7 +9,7 @@
     import {browser} from "$app/environment";
     import {goto} from "$app/navigation";
 
-    const base_url = import.meta.env.VITE_API_BASE_URL
+    const base_url = import.meta.env.VITE_BACKEND_BASE_URL;
 
     let usernameInput = "";
     let passwordInput = "";
@@ -34,28 +34,15 @@
         }
 
         try {
-            // Get Token From Messier API
-            const token = await axios.post(`${base_url}Account/LogOn`, {
+            // Get Token From Backend
+            const token = await axios.post(`${base_url}/login`, {
                 username: usernameInput,
                 password: passwordInput
-            }, {
-                withCredentials: true
-            });
-            // Get Identity From Messier API
-            const identity = await axios.get(`${base_url}Account/Me`, {
-                headers: {
-                    "Authorization": `Bearer ${token.data.access_token}`
-                }
             });
 
             if(browser) {
                 // Set Cookies
-                document.cookie = `slcatering-name=${identity.data.Name}`
-                document.cookie = `slcatering-role=customer`
-                document.cookie = `slcatering-username=${identity.data.Username}`
                 document.cookie = `slcatering-access_token=${token.data.access_token}`
-                document.cookie = `slcatering-expires_in=${token.data.expires_in}`
-                document.cookie = `slcatering-refresh_token=${token.data.refresh_token}`
             }
 
             await goto("/")

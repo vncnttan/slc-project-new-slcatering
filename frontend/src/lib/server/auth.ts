@@ -1,20 +1,36 @@
-import type {RequestEvent} from "@sveltejs/kit";
+import {redirect, type RequestEvent} from "@sveltejs/kit";
+import axios from "axios";
+import {logout} from "../../scripts/helper";
 
-
-export const authenticateUser = (event: RequestEvent) => {
+export const authenticateUser = async (event: RequestEvent) => {
     // Get cookie
     const {cookies} = event
 
-    // TODO: Get access token, then pass to backend to solve the username and full name
+    // Cache
     const access_token = cookies.get("slcatering-access_token")
-    const name = cookies.get("slcatering-name")
-    const username = cookies.get("slcatering-username")
-    const role = cookies.get("slcatering-role")
+    let username = ""
+    let role = ""
 
-    if(name && username && role) {
+    try {
+        // Decipher Token To User Information
+        const searchResult = await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/user`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+            },
+        });
+        username = searchResult.data.username
+        role = searchResult.data.role
+    } catch (err) {
+        if(err instanceof Error){
+            console.log("An error occured on Auth: ", err.message)
+        }
+        // Logout here to invalidate cookies
+        logout({cookies, locals: event.locals})
+    }
+    if (access_token) {
         return {
             token: access_token,
-            name: name,
             username: username,
             role: role
         }

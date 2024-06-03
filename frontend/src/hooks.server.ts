@@ -6,7 +6,7 @@ export const handle: Handle = async ({event, resolve}) => {
     // Authentication
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    event.locals.user = authenticateUser(event)
+    event.locals.user = await authenticateUser(event)
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
