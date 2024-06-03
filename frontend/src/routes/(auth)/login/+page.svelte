@@ -1,15 +1,14 @@
 <script lang="ts">
     import Particle from "../../../components/Particle.svelte";
     import slcatering_logo from "$lib/assets/slcatering_logo.png";
-    import {toast} from "@zerodevx/svelte-toast";
     import axios from "axios";
     import PasswordField from "../../../components/form/PasswordField.svelte";
     import TextField from "../../../components/form/TextField.svelte";
     import Button from "../../../components/form/Button.svelte";
     import {browser} from "$app/environment";
     import {goto} from "$app/navigation";
-
-    const base_url = import.meta.env.VITE_BACKEND_BASE_URL;
+    import {showToast, TOAST_TYPE} from "../../../scripts/helpers";
+    import {login} from "../../../scripts/datas/user-mutations-and-queries";
 
     let usernameInput = "";
     let passwordInput = "";
@@ -21,44 +20,23 @@
         isLoading = true;
         if (usernameInput.length < 1 || passwordInput.length < 1) {
             // Validate Username and Password is Filled
-            toast.push("All fields must be filled", {
-                theme: {
-                    "--toastBackground": "#B02000",
-                    "--toastColor": "#fff",
-                    "--toastProgressBackground": "#fff",
-                    "--toastProgressColor": "#B02000"
-                }
-            })
+            showToast("Please fill the form completely", TOAST_TYPE.ERROR)
             isLoading = false;
             return
         }
 
         try {
             // Get Token From Backend
-            const token = await axios.post(`${base_url}/login`, {
-                username: usernameInput,
-                password: passwordInput
-            });
+            const token = await login(usernameInput, passwordInput)
 
             if(browser) {
                 // Set Cookies
                 document.cookie = `slcatering-access_token=${token.data.access_token}`
             }
-
             await goto("/")
-
         } catch (err){
-            console.log("An error occured on Login: ", err)
-            toast.push('Invalid email and password', {
-                theme: {
-                    "--toastBackground": "#B02000",
-                    "--toastColor": "#fff",
-                    "--toastProgressBackground": "#fff",
-                    "--toastProgressColor": "#B02000"
-                }
-            })
+            showToast("Invalid Username or Password", TOAST_TYPE.ERROR)
         }
-
         isLoading = false;
     }
 </script>

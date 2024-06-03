@@ -1,6 +1,6 @@
 import {redirect, type RequestEvent} from "@sveltejs/kit";
 import axios from "axios";
-import {logout} from "../../scripts/helper";
+import {logout} from "../../scripts/datas/user-mutations-and-queries";
 
 export const authenticateUser = async (event: RequestEvent) => {
     // Get cookie
