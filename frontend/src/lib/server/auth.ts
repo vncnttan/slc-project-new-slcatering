@@ -1,4 +1,4 @@
-import {redirect, type RequestEvent} from "@sveltejs/kit";
+import {type RequestEvent} from "@sveltejs/kit";
 import axios from "axios";
 import {logout} from "../../scripts/datas/user-mutations-and-queries";
 

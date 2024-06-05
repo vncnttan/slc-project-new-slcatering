@@ -1,7 +1,6 @@
 <script lang="ts">
     import Particle from "../../../components/Particle.svelte";
     import slcatering_logo from "$lib/assets/slcatering_logo.png";
-    import axios from "axios";
     import PasswordField from "../../../components/form/PasswordField.svelte";
     import TextField from "../../../components/form/TextField.svelte";
     import Button from "../../../components/form/Button.svelte";

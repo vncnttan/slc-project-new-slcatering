@@ -19,7 +19,7 @@ export const handle: Handle = async ({event, resolve}) => {
     // @ts-expect-error
     if (!event.locals.user) {
         // Authenticate User Pages (Logged Out)
-        const userPages = ["/transactions"]
+        const userPages = ["/history"]
         if(userPages.includes(event.url.pathname)) {
             throw redirect(303, "/login")
         }
@@ -33,17 +33,6 @@ export const handle: Handle = async ({event, resolve}) => {
             throw redirect(303, "/")
         }
     }
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    if (event.locals.user?.role !== "customer") {
-        // Authenticate User Pages
-        const customerPages = ["/transactions"]
-        if(customerPages.includes(event.url.pathname)) {
-            throw redirect(303, "/")
-        }
-    }
-
 
     return resolve(event);
 }

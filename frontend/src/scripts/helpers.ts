@@ -5,7 +5,7 @@ const ERROR_TYPE_TOAST_OPTIONS = [{
     "--toastBackground": "#B02000",
     "--toastColor": "#fff",
     "--toastProgressBackground": "#fff",
-    "--toastProgressColor": "#B02000"
+    "--toastProgressColor": "#B02000",
 }, {
     "--toastBackground": "#008000",
     "--toastColor": "#fff",
@@ -32,6 +32,9 @@ export enum TOAST_TYPE {
 
 export const showToast = (message: string, type: TOAST_TYPE) => {
     toast.push(message, {
-        theme: ERROR_TYPE_TOAST_OPTIONS[type],
+        theme: {...ERROR_TYPE_TOAST_OPTIONS[type],
+            "--toastMsgPadding": "1rem 1rem",
+            "--toastWidth": "20rem",
+        },
     })
 }

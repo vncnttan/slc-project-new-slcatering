@@ -42,6 +42,11 @@
 .bg-orange-sig {
     background-color: #FF461E;
 }
+
+.hovered-bg-orange-sig:hover {
+    background-color: #de2d0a;
+}
+
 .home-selected-translate {
     transform: translate(0%, 0);
 }
