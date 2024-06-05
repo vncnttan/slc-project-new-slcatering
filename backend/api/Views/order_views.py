@@ -81,7 +81,7 @@ def get_orders(request):
             serializer_order = OrderViewSerializer(order, many=True).data
             return JsonResponse(serializer_order, status=status.HTTP_200_OK, safe=False)
     except AttributeError:
-        return JsonResponse({"message":"Access denied !"}, status=status.HTTP_403_FORBIDDEN)
+        return JsonResponse({"message":"Access denied 7!"}, status=status.HTTP_403_FORBIDDEN)
     except Exception as e :
         return JsonResponse({"message": "Oops something went wrong", "error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

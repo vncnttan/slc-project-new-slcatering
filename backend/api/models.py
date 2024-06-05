@@ -4,8 +4,9 @@ import uuid
 # Create your models here.
 class User(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
-    username = models.CharField(max_length=30, blank=False, unique=True) # ex. NJ23-1 / Nama Toko
+    username = models.CharField(max_length=30, blank=False, unique=True) # ex. NJ23-1
     role = models.CharField(max_length=50, blank=False, default="user")  # customer / merchant
+    store_name = models.CharField(max_length=50, blank=True)
 
 class Catering(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)

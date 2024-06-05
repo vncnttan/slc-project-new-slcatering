@@ -25,17 +25,20 @@ class AuthenticationMiddleware:
                     token_type, token = auth_header.split(' ')
                     if token_type == 'Bearer':
                         token = token.encode('utf-8')
+                        print("Token: ", token)
                         decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+                        print("Decoded Token: ", decoded_token)
                         request.user_id = decoded_token.get('user_id')
+                        print("User ID: ", request.user_id)
                     else:
-                        return JsonResponse({'message':'Access Denied !'}, status=status.HTTP_401_UNAUTHORIZED)
+                        return JsonResponse({'message':'Access Denied!'}, status=status.HTTP_401_UNAUTHORIZED)
 
                 except (InvalidToken, TokenError, User.DoesNotExist):
                     return JsonResponse({"message" : "Invalid token !"}, status=status.HTTP_401_UNAUTHORIZED)
                 except jwt.ExpiredSignatureError:
                     return JsonResponse({"message" : "Token expired !"}, status=status.HTTP_406_NOT_ACCEPTABLE)
             else:
-                return JsonResponse({'message':'Access Denied !'}, status=status.HTTP_401_UNAUTHORIZED)
+                return JsonResponse({'message':'Access Denied!'}, status=status.HTTP_401_UNAUTHORIZED)
         return self.get_response(request)
 
 class SellerMiddleware:
@@ -43,7 +46,6 @@ class SellerMiddleware:
         self.get_response = get_response
         self.protected_endpoints = [
             '/api/catering',
-            '/api/user',
         ]
     
     def __call__(self, request) -> Any:
@@ -51,12 +53,12 @@ class SellerMiddleware:
             try:    
                 user = User.objects.get(id = request.user_id)
                 request.user = user
-                if user.role != 'seller':
+                if user.role != 'merchant':
                     # print(user.role)
-                    return JsonResponse({"message":"Access Denied !"}, status=status.HTTP_401_UNAUTHORIZED)
+                    return JsonResponse({"message":"Access Denied!"}, status=status.HTTP_401_UNAUTHORIZED)
             except(User.DoesNotExist):
                 # print("user not found")
-                return JsonResponse({"message":"Access Denied !"}, status=status.HTTP_401_UNAUTHORIZED)
+                return JsonResponse({"message":"Access Denied!"}, status=status.HTTP_401_UNAUTHORIZED)
                     
         return self.get_response(request)
 

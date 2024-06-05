@@ -1,16 +1,13 @@
 <script lang="ts">
     import {toast} from "@zerodevx/svelte-toast";
+    import type {MenuInformationType} from "../../scripts/helpers";
 
-    interface VariantType {
-        name: string;
-        additional_price: number | null;
-    }
 
-    let variants: VariantType[] = [];
+    export let menuInformation: MenuInformationType;
 
     let addNewVariant = () => {
-        for (let i = 0; i < variants.length; i++) {
-            if (variants[i].name === '' || variants[i].additional_price === null) {
+        for (let i = 0; i < menuInformation.variants.length; i++) {
+            if (menuInformation.variants[i].name === '' || menuInformation.variants[i].additional_price === null) {
                 toast.push("Fill variant before adding new ones", {
                     theme: {
                         "--toastBackground": "#B02000",
@@ -22,14 +19,14 @@
                 return;
             }
         }
-        variants = [...variants, {
+        menuInformation.variants = [...menuInformation.variants, {
             name: '',
             additional_price: null
         }]
     }
 
     let removeVariant = (index: number) => {
-        variants = variants.filter((_, i) => i !== index);
+        menuInformation.variants = menuInformation.variants.filter((_, i) => i !== index);
     }
 
 </script>
@@ -60,7 +57,7 @@
             </div>
         </div>
     </div>
-    {#each variants as variant, index}
+    {#each menuInformation.variants as variant, index}
         <div class="grid md:grid-cols-2 md:gap-6 gap-2">
             <div class="relative z-0 w-full group">
                 <input type="text" name="floating_variant_name" id="floating_variant_name"

@@ -27,9 +27,7 @@ from drf_yasg import openapi
     method='get',
     security=[{'Bearer': []}],
     operation_description=(
-        "Retrieve user data. "
-        "If the 'all' parameter is provided and set to true, all users are retrieved. "
-        "Otherwise, retrieves specific user data."
+        "Retrieve specific user data based on the Authorization Token."
     ),
     manual_parameters=[
         openapi.Parameter(
@@ -67,8 +65,8 @@ from drf_yasg import openapi
 def user(request):
     if request.method == "GET":
         # print(request.GET.get('active'))
-        if(request.GET.get('all')):
-            return get_all_user()
+        # if(request.GET.get('all')):
+        #     return get_all_user()
         return get_user(request)
     elif request.method == "DELETE":
         # print("DELETE")
@@ -92,15 +90,12 @@ def user(request):
 )
 @api_view(['POST'])
 def login(request):
-    # TODO: Ganti ini dengan logic baru
     try: 
         data = JSONParser().parse(request)
         if not "username" in data or not "password" in data:
-            print("Username and password must be filled")
             return JsonResponse({"message": "Username and password must be filled"}, status=status.HTTP_400_BAD_REQUEST)
         
         if data["username"] == "" or data["password"] == "":
-            print("Username and password must be filled")
             return JsonResponse({"message": "Username and password must be filled"}, status=status.HTTP_400_BAD_REQUEST)
         
         username = data['username']
@@ -108,13 +103,11 @@ def login(request):
 
         base_url = "https://bluejack.binus.ac.id/lapi/api/Account/"
         messier_login_token = requests.post(base_url + "LogOn", data={"username": username, "password": password}).json()
-        print(messier_login_token)
-        
+
         if not "access_token" in messier_login_token:
             return JsonResponse({"message": "Invalid username / password"}, status=status.HTTP_400_BAD_REQUEST)
         
     except Exception as e:
-        # print(e)
         return JsonResponse({"message": "Oops something went wrong", "error" : str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)   
         
     # Try to get user data, if not exist, register from Messier
@@ -124,7 +117,6 @@ def login(request):
         # Register new user
         messier_login_token = messier_login_token["access_token"]
         messier_user_data = requests.get(base_url + "Me", headers={"Authorization": "Bearer " + messier_login_token}).json()
-        print(messier_user_data)
         serializer = UserSerializer(data={
             "username": username,
             "role": "customer",

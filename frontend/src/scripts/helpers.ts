@@ -38,3 +38,17 @@ export const showToast = (message: string, type: TOAST_TYPE) => {
         },
     })
 }
+
+export interface MenuInformationType {
+    thumbnail: string,
+    name: string,
+    date: string,
+    stock: string,
+    price: string,
+    variants: VariantType[],
+}
+
+export interface VariantType {
+    name: string,
+    additional_price: number | null,
+}
