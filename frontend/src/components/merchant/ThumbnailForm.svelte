@@ -1,5 +1,6 @@
 <script lang="ts">
-    let chosenImageLink: string | ArrayBuffer | null;
+    export let menuImageFile: { image:  File | null};
+    let chosenImagePreview: string | ArrayBuffer | null = null;
     let fileInput: HTMLInputElement;
 
     const onFileSelected = (event: Event) => {
@@ -15,7 +16,8 @@
         reader.readAsDataURL(image);
         reader.onload = (e) => {
             if (e.target && typeof e.target.result === 'string') {
-                chosenImageLink = e.target.result;
+                menuImageFile.image = image
+                chosenImagePreview = e.target.result;
             } else {
                 console.warn('Failed to read file as data URL');
             }
@@ -26,11 +28,11 @@
 <div class="w-full mx-auto">
     <input style="display:none" type="file" accept=".jpg, .jpeg, .png" on:change={(e)=>onFileSelected(e)} bind:this={fileInput} >
     <div class="relative z-0 w-full mb-5 group">
-        {#if chosenImageLink && typeof chosenImageLink === 'string'}
-            <img src={chosenImageLink} alt="Uploaded" class="w-full h-64 object-cover" />
-<!--            Create Overlay Gray -->
+        {#if chosenImagePreview && typeof chosenImagePreview === 'string'}
+            <img src={chosenImagePreview} alt="Uploaded" class="w-full h-64 object-cover" />
+<!--             Gray Overlay -->
             <button on:click={()=>{fileInput.click()}} class="absolute top-0 left-0 w-full h-64 bg-black bg-opacity-40"></button>
-            <img src={chosenImageLink} alt="Uploaded" class="absolute top-0 left-0 bottom-0 right-0 mx-auto my-auto h-48 w-48 object-cover rounded-md" />
+            <img src={chosenImagePreview} alt="Uploaded" class="absolute top-0 left-0 bottom-0 right-0 mx-auto my-auto h-48 w-48 object-cover rounded-md" />
         {:else}
             <button on:click={()=>{fileInput.click()}} class="w-full h-64 border-dashed border-2 flex flex-col gap-2 justify-center place-items-center text-gray-500">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-16">

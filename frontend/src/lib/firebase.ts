@@ -29,4 +29,7 @@ if (!getApps().length) {
 // Auth
 const firebaseAuth = getAuth(firebaseApp);
 
-export { firebaseApp, firebaseAuth };
+// Storage
+const firebaseStorage = getStorage(firebaseApp, PUBLIC_FIREBASE_STORAGE_BUCKET);
+
+export { firebaseApp, firebaseAuth, firebaseStorage};
