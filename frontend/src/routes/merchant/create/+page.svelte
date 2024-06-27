@@ -5,14 +5,19 @@
     import {type MenuInformationType, showToast, TOAST_TYPE} from "../../../scripts/helpers";
     import {createMenu} from "../../../scripts/datas/catering-mutations-and-queries";
     import {uploadFile} from "../../../scripts/firebase_upload";
+    import type {PageData} from "./$types";
+    import {redirect} from "@sveltejs/kit";
+    import {goto} from "$app/navigation";
+
+    export let data: PageData;
 
     let menuInformation: MenuInformationType = {
-        thumbnail: "",
-        name: "",
+        imageLink: "",
+        title: "",
         date: "",
         stock: "",
         price: "",
-        variants: [],
+        catering_variants: [],
     }
 
     let menuImageFile: { image: File | null} = {
@@ -20,7 +25,7 @@
     };
 
     async function submitSchedulCateringForm() {
-        if (menuInformation.name === "" ||
+        if (menuInformation.title === "" ||
             menuInformation.date === "" ||
             menuInformation.stock === "" ||
             menuInformation.price === ""
@@ -38,9 +43,19 @@
             showToast("Thumbnail is required", TOAST_TYPE.WARNING)
             return
         }
-        menuInformation.thumbnail = await uploadFile(`/${menuInformation.date}/`, menuInformation.name, menuImageFile.image)
+        menuInformation.imageLink = await uploadFile(`/${menuInformation.date}/`, menuInformation.title, menuImageFile.image)
 
-        await createMenu(menuInformation)
+        try {
+            if (data.user === null) {
+                showToast("You must login first", TOAST_TYPE.ERROR)
+                return
+            }
+            await createMenu(menuInformation, data.user?.token)
+            showToast("Menu created successfully", TOAST_TYPE.SUCCESS)
+            await goto('/')
+        } catch (e) {
+            showToast("Failed to create menu", TOAST_TYPE.ERROR)
+        }
     }
 
 </script>

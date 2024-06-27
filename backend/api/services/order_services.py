@@ -10,22 +10,22 @@ from django.db.models import Sum, F
 
 @transaction.atomic
 def create_order(user_id, order):
+    # TODO: Update logic for creating order through websocket with payment gateway
     try:
         if 'username' in order and 'password' in order:
             order.pop('username')
             order.pop('password')
             
         #check if user have any unpaid in history
-        debt = get_user_unpaid(user_id)
-        if debt >= 50000:
-            return JsonResponse({"message": f"You have debt of Rp.{debt},00 Please finish your payment before ordering more catering"}, status=status.HTTP_402_PAYMENT_REQUIRED)
+        any_unpaid = check_any_unpaid_orders(user_id)
+        if any_unpaid >= 50000:
+            return JsonResponse({"message": f"You have an unpaid transaction. Please finish your payment before ordering more catering"}, status=status.HTTP_402_PAYMENT_REQUIRED)
         
-        #check if the quantity is < then all the quantity order
-        
+        #check if the stock is < then all the quantity order
         catering_details = Catering.objects.select_for_update().get(id = order['catering'])
         all_order = Order.objects.filter(catering=order['catering']).count()
         
-        if all_order < catering_details.quantity:
+        if all_order + order['quantity'] < catering_details.stock: # TODO: Check this logic also
             order['ordered_by'] = user_id
             order['ordered_at'] = datetime.now()
             order['is_paid'] = False
@@ -40,16 +40,6 @@ def create_order(user_id, order):
     except Exception as e :
         return JsonResponse({"message":"Oops something went wrong", "error" : str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-def get_user_unpaid (user_id):
+def check_any_unpaid_orders (user_id):
     orders = Order.objects.filter(ordered_by = user_id, is_paid = False)
-    total = 0
-    # print(len(orders))
-    for order in orders:
-        item_total = 0
-        if order.variant != None:
-            item_total += order.variant.extra_price
-        item_total += order.catering.price
-        total += item_total
-        # print(total)
-    
-    return total
+    return len(orders) # TODO: Check if this function is correct

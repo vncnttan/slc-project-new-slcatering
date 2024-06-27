@@ -7,8 +7,6 @@ from django.http.response import JsonResponse
 def get_spesific_user_by_id(id):
     try:
         user = User.objects.get(id=id)
-        if user.is_activated == False:
-            return None
         return user
     except User.DoesNotExist:
         return None

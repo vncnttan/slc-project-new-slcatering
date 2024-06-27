@@ -40,15 +40,15 @@ export const showToast = (message: string, type: TOAST_TYPE) => {
 }
 
 export interface MenuInformationType {
-    thumbnail: string,
-    name: string,
+    imageLink: string,
+    title: string,
     date: string,
     stock: string,
     price: string,
-    variants: VariantType[],
+    catering_variants: VariantType[],
 }
 
 export interface VariantType {
-    name: string,
+    variant_name: string,
     additional_price: number | null,
 }

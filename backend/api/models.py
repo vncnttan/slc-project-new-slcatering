@@ -15,13 +15,14 @@ class Catering(models.Model):
     price = models.IntegerField(blank=False)
     created_by = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='caterings')
     is_closed = models.BooleanField(default=False, blank=False)
-    quantity = models.IntegerField(default=0, blank=False) # maksudnya stock barang
+    stock = models.IntegerField(default=0, blank=False)
+    date = models.DateField(blank=False)
     created_at = models.DateTimeField(blank=False)
 
 class VariantCaterings(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     variant_name = models.CharField(max_length=255, blank=False)
-    extra_price = models.IntegerField(blank=False)
+    additional_price = models.IntegerField(blank=False)
     catering = models.ForeignKey(to=Catering, on_delete=models.CASCADE, related_name='catering_variants')
 
 class Order(models.Model):

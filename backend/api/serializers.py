@@ -23,7 +23,7 @@ class VariantCateringSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'variant_name',
-            'extra_price',
+            'additional_price',
         )
 
 class CateringSerializer(serializers.ModelSerializer):
@@ -35,11 +35,12 @@ class CateringSerializer(serializers.ModelSerializer):
             'title',
             'imageLink',
             'price',
+            'is_closed',
+            'stock',
+            'date',
+            'created_at',
             'created_by',
             'catering_variants',
-            'is_closed',
-            'quantity'
-            'created_at',
         )
     
     def create(self, validated_data):
@@ -128,6 +129,6 @@ class CateringViewSerializer(serializers.ModelSerializer):
             'created_by',
             'catering_variants',
             'is_closed',
-            'quantity',
+            'stock',
             'order'
         )

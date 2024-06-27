@@ -34,7 +34,7 @@ from drf_yasg import openapi
         properties={
             "title" : openapi.Schema(type=openapi.TYPE_STRING, description="Catering title"),
             "price" : openapi.Schema(type=openapi.TYPE_INTEGER, description="Price"),
-            "quantity" : openapi.Schema(type=openapi.TYPE_INTEGER, description="Catering maximum order"),
+            "stock" : openapi.Schema(type=openapi.TYPE_INTEGER, description="Catering maximum order"),
             "catering_variants" : openapi.Schema(
                 type=openapi.TYPE_ARRAY,
                 description="Catering variants",
@@ -42,13 +42,13 @@ from drf_yasg import openapi
                     type=openapi.TYPE_OBJECT,
                     properties={
                         "variant_name" : openapi.Schema(type=openapi.TYPE_STRING, description="Catering variant name"),
-                        "extra_price": openapi.Schema(type=openapi.TYPE_INTEGER, description="Catering variant extra price")
+                        "additional_price": openapi.Schema(type=openapi.TYPE_INTEGER, description="Catering variant extra price")
                     }
                 ),
-                required=["variant_name", "extra_price"]
+                required=["variant_name", "additional_price"]
             ),
         },
-        required=["title", "price", "quantity", "catering_variants"]
+        required=["name", "price", "stock", "date", "catering_variants"]
     ),
     responses={
         201 : "Succesfully created catering",
@@ -141,7 +141,7 @@ def create_catering(request):
         
         user = user_services.get_spesific_user_by_id(request.user_id)
         
-        if not user or user.role != 'seller' or not user.is_activated:
+        if not user or user.role != 'merchant':
             return JsonResponse({"message" : "Your account is not authorized to create a catering"}, status=status.HTTP_401_UNAUTHORIZED)
         
         data["created_at"] = datetime.now()
@@ -150,9 +150,14 @@ def create_catering(request):
         
         serializer = CateringSerializer(data=data)
         if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+            try:
+                serializer.save()
+                return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+            except Exception as e:
+                print(f"Error: {str(e)}")
+                return JsonResponse({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else :
+            print(serializer.errors)
             return JsonResponse({'message' : 'Failed to proccess data'}, status=status.HTTP_406_NOT_ACCEPTABLE)
     except Exception as e:
         return JsonResponse({"message" : "Ooops something went wrong", "error" : str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

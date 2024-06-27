@@ -6,8 +6,8 @@
     export let menuInformation: MenuInformationType;
 
     let addNewVariant = () => {
-        for (let i = 0; i < menuInformation.variants.length; i++) {
-            if (menuInformation.variants[i].name === '' || menuInformation.variants[i].additional_price === null) {
+        for (let i = 0; i < menuInformation.catering_variants.length; i++) {
+            if (menuInformation.catering_variants[i].variant_name === '' || menuInformation.catering_variants[i].additional_price === null) {
                 toast.push("Fill variant before adding new ones", {
                     theme: {
                         "--toastBackground": "#B02000",
@@ -19,14 +19,14 @@
                 return;
             }
         }
-        menuInformation.variants = [...menuInformation.variants, {
-            name: '',
+        menuInformation.catering_variants = [...menuInformation.catering_variants, {
+            variant_name: '',
             additional_price: null
         }]
     }
 
     let removeVariant = (index: number) => {
-        menuInformation.variants = menuInformation.variants.filter((_, i) => i !== index);
+        menuInformation.catering_variants = menuInformation.catering_variants.filter((_, i) => i !== index);
     }
 
 </script>
@@ -57,7 +57,7 @@
             </div>
         </div>
     </div>
-    {#each menuInformation.variants as variant, index}
+    {#each menuInformation.catering_variants as variant, index}
         <div class="grid md:grid-cols-2 md:gap-6 gap-2">
             <div class="relative z-0 w-full group">
                 <input type="text" name="floating_variant_name" id="floating_variant_name"
@@ -65,7 +65,7 @@
                           text-sm text-gray-900 bg-transparent border-0 border-b-2
                           border-gray-300 appearance-none focus:outline-none
                           focus:ring-0 focus:border-red-600"
-                       bind:value="{variant.name}"
+                       bind:value="{variant.variant_name}"
                        placeholder="Custom Variant (ex. Jumbo)"/>
             </div>
 
