@@ -114,9 +114,11 @@ def login(request):
     user = get_spesific_user_by_username(username)
 
     if not user:
+        # use this if need extra data such as Full Name, etc.
+        # messier_login_token = messier_login_token["access_token"]
+        # messier_user_data = requests.get(base_url + "Me", headers={"Authorization": "Bearer " + messier_login_token}).json() 
+
         # Register new user
-        messier_login_token = messier_login_token["access_token"]
-        messier_user_data = requests.get(base_url + "Me", headers={"Authorization": "Bearer " + messier_login_token}).json()
         serializer = UserSerializer(data={
             "username": username,
             "role": "customer",
