@@ -9,6 +9,7 @@ from api.models import Catering
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
+# TODO: Tidy the method, migrate the logic to services
 
 @swagger_auto_schema(
     method='get',
@@ -82,6 +83,7 @@ from drf_yasg import openapi
 def catering(request):
     if request.method == "GET":
         if request.GET.get('active') == "true":
+            print("Sampe sini")
             return get_active_caterings(request)
         elif request.GET.get('active') == "false":
             try:
@@ -97,12 +99,12 @@ def catering(request):
                 return JsonResponse({"message" : "Access denied"}, status=status.HTTP_401_UNAUTHORIZED)
             except Exception as e :
                 return JsonResponse({"message" : "Oops something went wrong", "error" : str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        # else:
-        #     catering = catering_services.get_all_caterings()
-        #     if catering == None:
-        #         return JsonResponse({"message" : "Catering does not exist"}, status=status.HTTP_404_NOT_FOUND)
-        #     else:
-        #         return JsonResponse(catering.data, status=status.HTTP_200_OK, safe=False)
+        else:
+            catering = catering_services.get_all_caterings()
+            if catering == None:
+                return JsonResponse({"message" : "Catering does not exist"}, status=status.HTTP_404_NOT_FOUND)
+            else:
+                return JsonResponse(catering.data, status=status.HTTP_200_OK, safe=False)
     elif request.method == "POST":
         return create_catering(request)
     elif request.method == "PATCH":

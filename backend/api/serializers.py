@@ -9,7 +9,8 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username',
                   'id',
-                  'role')
+                  'role',
+                  'store_name')
     
     def to_representation(self, instance):
         representation = super().to_representation(instance)
@@ -119,12 +120,14 @@ class OrderViewSerializer(serializers.ModelSerializer):
 class CateringViewSerializer(serializers.ModelSerializer):
     order =  OrderViewSerializer(source='catering', many=True)
     catering_variants = VariantCateringSerializer(many=True)
+    created_by = UserSerializer()
     class Meta:
         model = Catering
         fields = (
             'id',
             'title',
             'price',
+            'imageLink',
             'created_at',
             'created_by',
             'catering_variants',
