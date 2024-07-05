@@ -52,3 +52,38 @@ export interface VariantType {
     variant_name: string,
     additional_price: number | null,
 }
+
+export interface CateringType {
+    id: string,
+    title: string,
+    imageLink: string | null,
+    price: number,
+    is_closed: boolean,
+    merchant: string,
+    date: string,
+    created_by: {
+        username: string
+        role: string
+        store_name: string
+    }
+}
+
+export interface OrderType {
+    id: string,
+    catering: {
+        price: number,
+        title: string,
+    },
+    is_paid: boolean,
+    notes: string,
+    ordered_by: {
+        id: string,
+        username: string,
+        role: string,
+    },
+    variant: {
+        id: string,
+        variant_name: string,
+        additional_price: string,
+    }
+}

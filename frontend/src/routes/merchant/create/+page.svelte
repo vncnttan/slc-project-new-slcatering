@@ -6,7 +6,6 @@
     import {createMenu} from "../../../scripts/datas/catering-mutations-and-queries";
     import {uploadFile} from "../../../scripts/firebase_upload";
     import type {PageData} from "./$types";
-    import {redirect} from "@sveltejs/kit";
     import {goto} from "$app/navigation";
 
     export let data: PageData;

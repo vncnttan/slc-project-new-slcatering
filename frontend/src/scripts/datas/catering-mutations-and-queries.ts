@@ -13,9 +13,27 @@ export function createMenu(menu: MenuInformationType, access_token: string) {
     })
 }
 
-
 export function getActiveMenus() {
     return axios.get(`${base_url}/catering?active=true`, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+}
+
+export function getCateringByMerchantId(access_token: string) {
+    console.log(access_token)
+    return axios.get(`${base_url}/catering?active=false`, {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${access_token}`
+        }
+    })
+
+}
+
+export function getCateringDetailsById(id: string) {
+    return axios.get(`${base_url}/catering?id=${id}`, {
         headers: {
             "Content-Type": "application/json"
         }

@@ -2,6 +2,8 @@
     import Siema from "siema";
     import {onMount} from "svelte";
     import {getActiveMenus} from "../../scripts/datas/catering-mutations-and-queries";
+    import type {CateringType} from "../../scripts/helpers";
+    import {fade} from 'svelte/transition';
 
     let slider: Siema | null = null;
     let prev: () => void
@@ -9,26 +11,13 @@
 
     let select = 0
 
-    interface Catering {
-        title: string,
-        imageLink: string | null,
-        price: number,
-        merchant: string,
-        date: string,
-        created_by: {
-            username: string
-            role: string
-            store_name: string
-        }
-    }
 
-    let menus = [] as Catering[]
+    let menus = [] as CateringType[]
 
     $: if (menus.length > 0) {
         setTimeout(() => {
             initializeSlider()
         }, 100)
-        console.log("Slider Initialized")
     }
 
     function initializeSlider() {
@@ -44,10 +33,8 @@
             loop: true,
             rtl: false,
             onInit: () => {
-                console.log("Just initialized Carousel")
             },
             onChange: () => {
-                console.log("Just changed Carousel")
             },
         });
 
@@ -75,22 +62,22 @@
 
 </script>
 
-<div class="relative">
-    <div id="siema-div" class="siema w-full justify-center justify-items-center rounded-xl">
-        {#if menus.length === 0}
-            <div class="w-full h-96 flex flex-row justify-center items-center">
-                <div class="text-2xl font-semibold text-gray-500">
-                    No Menus Available
-                </div>
+<div class="relative h-96">
+    {#if menus.length === 0}
+        <div in:fade={{ delay: 500 }} out:fade class="w-full h-96 flex flex-row justify-center items-center">
+            <div class="text-2xl font-semibold text-gray-500">
+                No Menus Available
             </div>
-        {:else}
+        </div>
+    {:else}
+        <div id="siema-div" in:fade={{ delay: 500 }} out:fade class="siema w-full h-96 justify-center justify-items-center rounded-xl">
             <!-- Black gradient overlay -->
             {#each menus as m}
-                <div class="h-96 relative bg-no-repeat bg-cover bg-top rounded-xl slide-container"
+                <div class="h-96 relative bg-no-repeat bg-cover bg-center rounded-xl slide-container"
                      style="background-image: {m.imageLink ? `url('${m.imageLink}')` : 'linear-gradient(90deg, #B02000, #FF370B)'}">
                     <div class="absolute w-full h-96 bg-gradient-to-t from-black/100 to-black/15"></div>
                     <div class="w-full h-96 flex flex-row justify-between place-items-end absolute font-inter p-4 md:p-6 2xl:p-10">
-                        <a href="/product-detail/{m.title}" class="flex flex-row gap-3 place-items-center">
+                        <a href="/product-detail/{m.id}" class="flex flex-row gap-3 place-items-center">
                             <img src="{m.imageLink ?? 'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg'}"
                                  alt="Menu Preview" class="w-20 h-20 rounded-md object-cover"/>
                             <div class="flex flex-col">
@@ -105,14 +92,21 @@
                                 </div>
                             </div>
                         </a>
-                        <button class="bg-red-700 hover:bg-red-800 text-normal font-normal text-white rounded-xl p-1 md:p-2 w-20 md:w-24">
-                            Order
-                        </button>
+                        <div class="flex flex-row gap-3">
+                            <a href="/product-detail/{m.id}">
+                                <button class="bg-gray-600 hover:bg-gray-700 text-normal text-lg text-white rounded-xl p-1 md:p-3  tracking-wide w-20 md:w-28">
+                                    Details
+                                </button>
+                            </a>
+                            <button class="bg-red-600 hover:bg-red-700 text-normal text-lg text-white rounded-xl p-1 md:p-3 font-semibold tracking-wide w-20 md:w-28">
+                                Order
+                            </button>
+                        </div>
                     </div>
                 </div>
             {/each}
-        {/if}
-    </div>
+        </div>
+    {/if}
 
 
     <!--    Slider Radio Button -->
