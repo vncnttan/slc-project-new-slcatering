@@ -18,7 +18,6 @@ def get_all_catering_history():
     except Catering.DoesNotExist:
         return None
         
-
 def get_all_caterings():
     try:
         caterings = Catering.objects.all()
@@ -35,10 +34,20 @@ def get_all_active_sellers_caterings(id):
     except Catering.DoesNotExist:
         return None
     
-def get_all_past_sellers_caterings(id):
+def get_all_caterings_by_merchant(merchant_id):
     try:
-        caterings = Catering.objects.filter(created_by_id=id, is_closed=True)
+        caterings = Catering.objects.filter(created_by_id=merchant_id)
+        print("!! Caterings: ", caterings)
         caterings_serializer = CateringViewSerializer(caterings, many=True)
         return caterings_serializer
+    except Catering.DoesNotExist:
+        return None
+    
+def get_specific_catering_by_id(id):
+    try:
+        catering = Catering.objects.get(id=id)
+        catering_serializer = CateringViewSerializer(catering)
+        print(catering_serializer.data)
+        return catering_serializer
     except Catering.DoesNotExist:
         return None

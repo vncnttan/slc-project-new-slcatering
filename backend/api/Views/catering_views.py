@@ -83,28 +83,35 @@ from drf_yasg import openapi
 def catering(request):
     if request.method == "GET":
         if request.GET.get('active') == "true":
-            print("Sampe sini")
             return get_active_caterings(request)
         elif request.GET.get('active') == "false":
             try:
                 curr_user = user_services.get_spesific_user_by_id(request.user_id)
-                if(curr_user.role == "seller"):
-                    catering = catering_services.get_all_past_sellers_caterings(request.user_id)
+                if(curr_user.role == "merchant"):
+                    catering = catering_services.get_all_caterings_by_merchant(request.user_id)
+                    print(catering.data)
                     if catering == None:
                         return JsonResponse([], status=status.HTTP_200_OK)
                     return JsonResponse(catering.data, status=status.HTTP_200_OK, safe=False)
                 else:
                     return JsonResponse({"message" : "Access denied"}, status=status.HTTP_401_UNAUTHORIZED)
             except AttributeError as e:
-                return JsonResponse({"message" : "Access denied"}, status=status.HTTP_401_UNAUTHORIZED)
+                return JsonResponse({"message" : "Access denied disini"}, status=status.HTTP_401_UNAUTHORIZED)
             except Exception as e :
                 return JsonResponse({"message" : "Oops something went wrong", "error" : str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        else:
-            catering = catering_services.get_all_caterings()
+            
+        if request.GET.get('id'):
+            catering = catering_services.get_specific_catering_by_id(request.GET.get('id'))
             if catering == None:
                 return JsonResponse({"message" : "Catering does not exist"}, status=status.HTTP_404_NOT_FOUND)
             else:
                 return JsonResponse(catering.data, status=status.HTTP_200_OK, safe=False)
+            
+        catering = catering_services.get_all_caterings()
+        if catering == None:
+            return JsonResponse({"message" : "Catering does not exist"}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            return JsonResponse(catering.data, status=status.HTTP_200_OK, safe=False)
     elif request.method == "POST":
         return create_catering(request)
     elif request.method == "PATCH":

@@ -21,8 +21,16 @@ export function getActiveMenus() {
     })
 }
 
+export function getAllMenus() {
+    return axios.get(`${base_url}/catering`, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+
+}
+
 export function getCateringByMerchantId(access_token: string) {
-    console.log(access_token)
     return axios.get(`${base_url}/catering?active=false`, {
         headers: {
             "Content-Type": "application/json",

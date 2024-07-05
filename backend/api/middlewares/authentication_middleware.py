@@ -14,25 +14,14 @@ class AuthenticationMiddleware:
         self.protected_endpoints = [
             '/api/user',
             '/api/catering',
-            ]
+        ]
     
     def __call__(self, request) -> Any:
-        
-        if (any(request.path.startswith(endpoint) for endpoint in self.protected_endpoints) and (request.method == "POST" or request.method == "PUT" or request.method == "PATCH")) or request.path == self.protected_endpoints[0]:
+        if (any(request.path.startswith(endpoint) for endpoint in self.protected_endpoints) and (request.method == "POST" or request.method == "PUT" or request.method == "PATCH")):
             auth_header = request.META.get('HTTP_AUTHORIZATION')
-            if  auth_header:
+            if auth_header:
                 try:
-                    token_type, token = auth_header.split(' ')
-                    if token_type == 'Bearer':
-                        token = token.encode('utf-8')
-                        print("Token: ", token)
-                        decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
-                        print("Decoded Token: ", decoded_token)
-                        request.user_id = decoded_token.get('user_id')
-                        print("User ID: ", request.user_id)
-                    else:
-                        return JsonResponse({'message':'Access Denied!'}, status=status.HTTP_401_UNAUTHORIZED)
-
+                    get_auth_by_header(auth_header, request)
                 except (InvalidToken, TokenError, User.DoesNotExist):
                     return JsonResponse({"message" : "Invalid token !"}, status=status.HTTP_401_UNAUTHORIZED)
                 except jwt.ExpiredSignatureError:
@@ -54,12 +43,20 @@ class SellerMiddleware:
                 user = User.objects.get(id = request.user_id)
                 request.user = user
                 if user.role != 'merchant':
-                    # print(user.role)
                     return JsonResponse({"message":"Access Denied!"}, status=status.HTTP_401_UNAUTHORIZED)
             except(User.DoesNotExist):
-                # print("user not found")
                 return JsonResponse({"message":"Access Denied!"}, status=status.HTTP_401_UNAUTHORIZED)
-                    
+        else:
+            auth_header = request.META.get('HTTP_AUTHORIZATION')
+            if auth_header and request.path == "/api/catering" and request.method == "GET":
+                try:
+                    get_auth_by_header(auth_header, request)
+                except (InvalidToken, TokenError, User.DoesNotExist):
+                    return JsonResponse({"message" : "Invalid token !"}, status=status.HTTP_401_UNAUTHORIZED)
+                except jwt.ExpiredSignatureError:
+                    return JsonResponse({"message" : "Token expired !"}, status=status.HTTP_406_NOT_ACCEPTABLE)
+            pass
+        
         return self.get_response(request)
 
 class OrderMiddleware:
@@ -71,7 +68,7 @@ class OrderMiddleware:
     
     def __call__(self, request) -> Any:
         auth_header = request.META.get('HTTP_AUTHORIZATION')
-        if  auth_header:
+        if auth_header:
             try:
                 token_type, token = auth_header.split(' ')
                 if token_type == 'Bearer':
@@ -82,3 +79,16 @@ class OrderMiddleware:
                 self.get_response(request)
         return self.get_response(request)
             
+
+# TODO: Migrate to helper
+def get_auth_by_header(auth_header, request):
+    token_type, token = auth_header.split(' ')
+    if token_type == 'Bearer':
+        token = token.encode('utf-8')
+        print("Token: ", token)
+        decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+        print("Decoded Token: ", decoded_token)
+        request.user_id = decoded_token.get('user_id')
+        print("User ID: ", request.user_id)
+    else:
+        return JsonResponse({'message':'Access Denied!'}, status=status.HTTP_401_UNAUTHORIZED)

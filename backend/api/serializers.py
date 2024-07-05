@@ -118,7 +118,6 @@ class OrderViewSerializer(serializers.ModelSerializer):
 
 
 class CateringViewSerializer(serializers.ModelSerializer):
-    order =  OrderViewSerializer(source='catering', many=True)
     catering_variants = VariantCateringSerializer(many=True)
     created_by = UserSerializer()
     class Meta:
@@ -127,11 +126,11 @@ class CateringViewSerializer(serializers.ModelSerializer):
             'id',
             'title',
             'price',
+            'date',
             'imageLink',
             'created_at',
             'created_by',
             'catering_variants',
             'is_closed',
             'stock',
-            'order'
         )
