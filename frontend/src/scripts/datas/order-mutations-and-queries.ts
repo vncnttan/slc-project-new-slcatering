@@ -9,3 +9,12 @@ export function getCateringOrders(id: string) {
         }
     })
 }
+
+export function getUserOrders(access_token: string) {
+    return axios.get(`${base_url}/order`, {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${access_token}`
+        }
+    })
+}

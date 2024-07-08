@@ -18,7 +18,6 @@
 
     onMount(async () => {
         menu = (await getCateringDetailsById(id)).data
-        console.log(menu)
     })
 </script>
 

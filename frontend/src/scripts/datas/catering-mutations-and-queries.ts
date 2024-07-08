@@ -21,15 +21,6 @@ export function getActiveMenus() {
     })
 }
 
-export function getAllMenus() {
-    return axios.get(`${base_url}/catering`, {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-
-}
-
 export function getCateringByMerchantId(access_token: string) {
     return axios.get(`${base_url}/catering?active=false`, {
         headers: {
@@ -42,6 +33,14 @@ export function getCateringByMerchantId(access_token: string) {
 
 export function getCateringDetailsById(id: string) {
     return axios.get(`${base_url}/catering?id=${id}`, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+}
+
+export function getMostPopularMenu(){
+    return axios.get(`${base_url}/leaderboards?menu=true`, {
         headers: {
             "Content-Type": "application/json"
         }

@@ -16,7 +16,7 @@
 
 <div class="relative overflow-x-auto sm:rounded-2xl rounded-md">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-        <thead class="text-sm text-gray-800 uppercase bg-gray-300">
+        <thead class="text-sm text-white uppercase bg-gradient-to-b from-slate-700 to-gray-600">
         <tr>
             <th scope="col" class="text-center px-6 py-3">
                 Product name

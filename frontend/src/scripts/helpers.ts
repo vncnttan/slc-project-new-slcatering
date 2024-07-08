@@ -61,6 +61,7 @@ export interface CateringType {
     is_closed: boolean,
     merchant: string,
     date: string,
+    order_count: number,
     created_by: {
         username: string
         role: string
@@ -71,8 +72,10 @@ export interface CateringType {
 export interface OrderType {
     id: string,
     catering: {
+        id: string,
         price: number,
         title: string,
+        date: string,
     },
     is_paid: boolean,
     notes: string,
@@ -86,4 +89,12 @@ export interface OrderType {
         variant_name: string,
         additional_price: string,
     }
+}
+
+export type CustomerType = {
+    id: string,
+    username: string,
+    role: string,
+    store_name: string,
+    total_order: number,
 }

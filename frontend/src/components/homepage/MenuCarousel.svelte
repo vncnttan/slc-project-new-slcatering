@@ -55,22 +55,30 @@
         }
     }
 
+    let loading = true
+
     onMount(async () => {
         slider?.destroy()
         menus = (await getActiveMenus()).data
+        loading = false
     })
 
 </script>
 
 <div class="relative h-96">
-    {#if menus.length === 0}
+    {#if loading}
+        <div in:fade={{ delay: 500 }} out:fade class="w-full h-96 flex flex-row justify-center items-center animate-pulse bg-gray-200">
+
+        </div>
+    {:else if menus.length === 0}
         <div in:fade={{ delay: 500 }} out:fade class="w-full h-96 flex flex-row justify-center items-center">
             <div class="text-2xl font-semibold text-gray-500">
                 No Menus Available
             </div>
         </div>
     {:else}
-        <div id="siema-div" in:fade={{ delay: 500 }} out:fade class="siema w-full h-96 justify-center justify-items-center rounded-xl">
+        <div id="siema-div" in:fade={{ delay: 500 }} out:fade
+             class="siema w-full h-96 justify-center justify-items-center rounded-xl">
             <!-- Black gradient overlay -->
             {#each menus as m}
                 <div class="h-96 relative bg-no-repeat bg-cover bg-center rounded-xl slide-container"
