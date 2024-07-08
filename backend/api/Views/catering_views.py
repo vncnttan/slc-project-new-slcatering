@@ -10,6 +10,7 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
 # TODO: Tidy the method, migrate the logic to services
+# TODO: Correct Documentation
 
 @swagger_auto_schema(
     method='get',
@@ -89,7 +90,6 @@ def catering(request):
                 curr_user = user_services.get_spesific_user_by_id(request.user_id)
                 if(curr_user.role == "merchant"):
                     catering = catering_services.get_all_caterings_by_merchant(request.user_id)
-                    print(catering.data)
                     if catering == None:
                         return JsonResponse([], status=status.HTTP_200_OK)
                     return JsonResponse(catering.data, status=status.HTTP_200_OK, safe=False)
@@ -99,14 +99,16 @@ def catering(request):
                 return JsonResponse({"message" : "Access denied disini"}, status=status.HTTP_401_UNAUTHORIZED)
             except Exception as e :
                 return JsonResponse({"message" : "Oops something went wrong", "error" : str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-            
+        
+        # Most Popular Menu
+
         if request.GET.get('id'):
             catering = catering_services.get_specific_catering_by_id(request.GET.get('id'))
             if catering == None:
                 return JsonResponse({"message" : "Catering does not exist"}, status=status.HTTP_404_NOT_FOUND)
             else:
                 return JsonResponse(catering.data, status=status.HTTP_200_OK, safe=False)
-            
+        
         catering = catering_services.get_all_caterings()
         if catering == None:
             return JsonResponse({"message" : "Catering does not exist"}, status=status.HTTP_404_NOT_FOUND)
@@ -116,7 +118,6 @@ def catering(request):
         return create_catering(request)
     elif request.method == "PATCH":
         return close_catering(request)
-
 
 def close_catering(request):
     data = JSONParser().parse(request)

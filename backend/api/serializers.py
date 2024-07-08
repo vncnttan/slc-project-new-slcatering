@@ -4,13 +4,14 @@ from django.db import transaction
 from django.core.exceptions import ValidationError
 
 class UserSerializer(serializers.ModelSerializer):
-    
+    total_order = serializers.IntegerField(read_only=True)
     class Meta:
         model = User
         fields = ('username',
                   'id',
                   'role',
-                  'store_name')
+                  'store_name',
+                  'total_order')
     
     def to_representation(self, instance):
         representation = super().to_representation(instance)
@@ -57,9 +58,10 @@ class OrderCateringSerializer(serializers.ModelSerializer):
         model = Catering
         fields = (
             'id',
+            'date',
             'title',
             'price',
-            'imageLink'
+            'imageLink',
         )
 
 class OrderUserSerializer(serializers.ModelSerializer):
@@ -93,8 +95,10 @@ class OrderCateringViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Catering
         fields = (
+            'id',
             'title',
-            'price'
+            'price',
+            'date'
         )
 
 class OrderViewSerializer(serializers.ModelSerializer):
@@ -118,6 +122,7 @@ class OrderViewSerializer(serializers.ModelSerializer):
 
 
 class CateringViewSerializer(serializers.ModelSerializer):
+    order_count = serializers.IntegerField(read_only=True)
     catering_variants = VariantCateringSerializer(many=True)
     created_by = UserSerializer()
     class Meta:
@@ -133,4 +138,5 @@ class CateringViewSerializer(serializers.ModelSerializer):
             'catering_variants',
             'is_closed',
             'stock',
+            'order_count'
         )

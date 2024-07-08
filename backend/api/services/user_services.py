@@ -3,6 +3,7 @@ from rest_framework import status
 from api.models import User
 from api.serializers import UserSerializer
 from django.http.response import JsonResponse
+from django.db.models import Count
 
 def get_spesific_user_by_id(id):
     try:
@@ -18,3 +19,12 @@ def get_spesific_user_by_username(username):
     except User.DoesNotExist:
         return None
     
+def get_top_customer():
+    try:
+        users = User.objects.annotate(
+            total_order=Count('ordered_by')
+        ).order_by('-total_order')[:5]
+        users_serializer = UserSerializer(users, many=True)
+        return users_serializer
+    except User.DoesNotExist:
+        return None

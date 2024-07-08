@@ -1,5 +1,6 @@
-from api.models import Catering, VariantCaterings
-from api.serializers import CateringSerializer,VariantCateringSerializer, CateringViewSerializer
+from api.models import Catering
+from api.serializers import CateringViewSerializer
+from django.db.models import Count
 
 def get_active_caterings():
     try:
@@ -49,5 +50,16 @@ def get_specific_catering_by_id(id):
         catering_serializer = CateringViewSerializer(catering)
         print(catering_serializer.data)
         return catering_serializer
+    except Catering.DoesNotExist:
+        return None
+    
+
+def get_popular_caterings():
+    try:
+        caterings = Catering.objects.annotate(
+            order_count=Count('catering')
+        ).order_by('-order_count')[:5]
+        caterings_serializer = CateringViewSerializer(caterings, many=True)
+        return caterings_serializer
     except Catering.DoesNotExist:
         return None
