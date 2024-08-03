@@ -48,6 +48,12 @@ export interface MenuInformationType {
     catering_variants: VariantType[],
 }
 
+export interface SelectedType {
+    variant_id: string,
+    quantity: number,
+    variant_name: string,
+}
+
 export interface VariantType {
     id: string,
     variant_name: string,

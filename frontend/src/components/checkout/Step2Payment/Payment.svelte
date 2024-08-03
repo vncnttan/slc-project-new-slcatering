@@ -1,17 +1,18 @@
 <script lang="ts">
     import CheckoutSummary from "./CheckoutSummary.svelte";
-    import type {CateringType} from "../../../scripts/helpers";
+    import type {CateringType, SelectedType} from "../../../scripts/helpers";
 
     export let menu: CateringType
+    export let selectedVariants: SelectedType[]
 </script>
 
 <div class="page-container">
     <div class="border-box-container">
-        <!--        Summary-->
-        <CheckoutSummary menu={menu}/>
+        <!--        Summary -->
+        <CheckoutSummary menu={menu} selectedVariants={selectedVariants}/>
     </div>
     <div class="border-box-container">
-        <!--        QR Code-->
+        <!--        QR Code -->
         s
     </div>
 </div>

@@ -33,7 +33,7 @@
                           clip-rule="evenodd"/>
                 </svg>
             </button>
-            <SelectField bind:variants={variants} bind:selectedVariantId={sv.variant_id}/>
+            <SelectField bind:variants={variants} bind:selectedVariant={sv} />
             <QuantitySelector bind:inputValue={sv.quantity}/>
             <DeleteVariant/>
         </div>

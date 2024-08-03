@@ -1,13 +1,21 @@
 <script lang="ts">
-    import type {VariantType} from "../../scripts/helpers";
+    import type {SelectedType, VariantType} from "../../scripts/helpers";
 
     export let variants = [] as VariantType[]
-    export let selectedVariantId: string
+    export let selectedVariant: SelectedType
 
 </script>
 
 <div class="relative border border-gray-300 grow">
-    <select bind:value={selectedVariantId}
+    <select bind:value={selectedVariant.variant_id}
+            on:change={()=>{
+                const selected = variants.find(v => v.id === selectedVariant.variant_id);
+                if (selected) {
+                    selectedVariant.variant_name = selected.variant_name;
+                } else if (selectedVariant.variant_id === "Reguler") {
+                    selectedVariant.variant_name = "Reguler";
+                }
+            }}
             class="bg-white text-gray-900 outline-red-sig text-base rounded-sm focus:ring-red-900
                                focus:border-red-sig focused-text-red-sig block w-full px-5 p-2.5 dark:bg-gray-700 dark:border-gray-600
                                dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-900 dark:focus:border-red-sig">

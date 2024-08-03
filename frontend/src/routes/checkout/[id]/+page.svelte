@@ -1,7 +1,7 @@
 <script lang="ts">
     import {page} from "$app/stores";
     import CheckoutLayout from "../../../components/checkout/CheckoutLayout.svelte";
-    import type {CateringType} from "../../../scripts/helpers";
+    import type {CateringType, SelectedType} from "../../../scripts/helpers";
     import {onMount} from "svelte";
     import {getCateringDetailsById} from "../../../scripts/datas/catering-mutations-and-queries";
     import CompleteOrderInfo from "../../../components/checkout/Step1OrderInfo/CompleteOrderInfo.svelte";
@@ -11,8 +11,10 @@
     let menu = {} as CateringType;
     let selectedVariants = [{
         variant_id: "Reguler",
+        variant_name: "Reguler",
         quantity: 1
-    }]
+    }] as SelectedType[];
+
     onMount(async () => {
         menu = (await getCateringDetailsById(id)).data
     })
@@ -25,6 +27,6 @@
     {#if currentStep === 1}
         <CompleteOrderInfo bind:currentStep menu={menu} bind:selectedVariants/>
     {:else if currentStep === 2}
-        <Payment menu={menu} />
+        <Payment menu={menu} selectedVariants={selectedVariants}/>
     {/if}
 </CheckoutLayout>
