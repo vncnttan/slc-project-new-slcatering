@@ -67,7 +67,8 @@
 
 <div class="relative h-96">
     {#if loading}
-        <div in:fade={{ delay: 500 }} out:fade class="w-full h-96 flex flex-row justify-center items-center animate-pulse bg-gray-200">
+        <div in:fade={{ delay: 500 }} out:fade
+             class="w-full h-96 flex flex-row justify-center items-center animate-pulse bg-gray-200">
 
         </div>
     {:else if menus.length === 0}
@@ -106,9 +107,11 @@
                                     Details
                                 </button>
                             </a>
-                            <button class="bg-red-600 hover:bg-red-700 text-normal text-lg text-white rounded-xl p-1 md:p-3 font-semibold tracking-wide w-20 md:w-28">
-                                Order
-                            </button>
+                            <a href="/checkout/{m.id}">
+                                <button class="bg-red-600 hover:bg-red-700 text-normal text-lg text-white rounded-xl p-1 md:p-3 font-semibold tracking-wide w-20 md:w-28">
+                                    Order
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>

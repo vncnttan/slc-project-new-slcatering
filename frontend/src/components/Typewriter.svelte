@@ -49,7 +49,7 @@
     onMount(update);
 </script>
 
-<div class="inline-flex flex-row place-items-center">
+<div class="inline-flex flex-row place-items-center text-orange-sig font-semibold">
     <span>
         {shown}
     </span>

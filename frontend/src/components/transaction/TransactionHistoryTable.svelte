@@ -19,16 +19,16 @@
 
 <div class="relative overflow-x-auto sm:rounded-2xl rounded-md">
     {#if loading}
-        <div in:fade={{ delay: 500 }} out:fade class="text-center p-4">
+        <div  class="text-center p-4">
             <p class="text-gray-500">Loading...</p>
         </div>
     {:else}
         {#if orders.length === 0}
-            <div in:fade={{ delay: 500 }} out:fade class="text-center p-4">
+            <div in:fade={{ delay: 300 }} out:fade class="text-center p-4">
                 <p class="text-gray-500">You haven't made any orders yet</p>
             </div>
         {:else}
-            <table in:fade={{ delay: 500 }} out:fade class="w-full text-sm text-left rtl:text-right text-gray-500">
+            <table in:fade={{ delay: 300 }} out:fade class="w-full text-sm text-left rtl:text-right text-gray-500">
                 <thead class="text-sm text-white uppercase bg-gradient-to-b from-slate-700 to-gray-600">
                 <tr>
                     <th scope="col" class="hidden md:block px-6 py-3 text-center">

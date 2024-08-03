@@ -15,17 +15,17 @@
 </script>
 
 {#if loading}
-    <div in:fade={{ delay: 500 }} out:fade class="text-center py-4 flex flex-col gap-2 text-2xl text-gray-500">
+    <div class="text-center py-4 flex flex-col gap-2 text-2xl text-gray-500">
         Loading...
     </div>
 {:else if orders.length === 0}
-    <div in:fade={{ delay: 500 }} out:fade class="text-center py-4 flex flex-col gap-2 text-2xl text-gray-500">
+    <div in:fade={{ delay: 300 }} out:fade class="text-center py-4 flex flex-col gap-2 text-2xl text-gray-500">
         <div class="font-bold text-8xl">404</div>
         No Orders yet...
     </div>
 {:else}
     <div class="relative overflow-x-auto sm:rounded-2xl rounded-md">
-        <table in:fade={{ delay: 500 }} out:fade class="w-full text-sm text-left rtl:text-right text-gray-500">
+        <table in:fade={{ delay: 300 }} out:fade class="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead class="text-sm uppercase text-white bg-gradient-to-b from-slate-700 to-gray-700 rounded-t-xl">
             <tr>
                 <th scope="col" class="px-2 py-3 text-center">
