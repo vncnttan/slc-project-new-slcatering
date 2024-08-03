@@ -49,6 +49,7 @@ export interface MenuInformationType {
 }
 
 export interface VariantType {
+    id: string,
     variant_name: string,
     additional_price: number | null,
 }
@@ -66,7 +67,8 @@ export interface CateringType {
         username: string
         role: string
         store_name: string
-    }
+    },
+    catering_variants: VariantType[]
 }
 
 export interface OrderType {

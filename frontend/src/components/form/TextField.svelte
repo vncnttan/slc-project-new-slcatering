@@ -13,6 +13,8 @@
         fieldIcon?.classList.add("text-gray-500")
     }
 
+    export let placeholder = "Username" ;
+
 </script>
 
 <div class="relative">
@@ -29,5 +31,5 @@
            on:focus={fieldFocus}
            on:blur={fieldBlur}
            bind:value="{inputValue}"
-           placeholder="Username">
+           placeholder="{placeholder}">
 </div>

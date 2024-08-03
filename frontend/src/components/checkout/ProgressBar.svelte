@@ -10,25 +10,14 @@
         {stepNum: 3, description: "Transaction Completed"},
     ]
 
-    let currentStep = 2;
-    const progress = tweened(((currentStep - 2) * 50), {
-        duration: 2000,
+    export let currentStep = 1;
+
+    const progress = tweened(0, {
+        duration: 1700,
         easing: cubicOut
     });
 
     $: progress.set((currentStep - 1) * 50);
-
-    function increaseStep() {
-        if (currentStep < 3) {
-            currentStep += 1;
-        }
-    }
-
-    function decreaseStep() {
-        if (currentStep > 1) {
-            currentStep -= 1;
-        }
-    }
 </script>
 
 <div class="w-full grid grid-cols-3 relative ">
@@ -42,10 +31,6 @@
     <ProgressItem item={steps[2]} active={currentStep >= 3} completed={currentStep > 3}/>
 </div>
 
-<button>
-        <button on:click={increaseStep}>Next</button>
-        <button on:click={decreaseStep}>Reset</button>
-</button>
 
 <style>
     .dash-container {
@@ -70,6 +55,6 @@
         position: absolute;
         left: 0;
         height: 1px;
-        border-top: 3px dashed #FF461E;
+        border-top: 3px solid #FF461E;
     }
 </style>
