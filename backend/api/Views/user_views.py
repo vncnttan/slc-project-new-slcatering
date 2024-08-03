@@ -4,6 +4,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.contrib.auth.hashers import make_password, check_password
 from rest_framework import permissions
+from api.services import user_services, catering_services
 from api.models import User
 from api.serializers import UserSerializer
 from rest_framework.decorators import api_view, permission_classes
@@ -64,13 +65,25 @@ from drf_yasg import openapi
 @api_view(["GET", "DELETE"])
 def user(request):
     if request.method == "GET":
-        # print(request.GET.get('active'))
-        # if(request.GET.get('all')):
-        #     return get_all_user()
         return get_user(request)
     elif request.method == "DELETE":
-        # print("DELETE")
         return delete_user(request)
+
+@api_view(["GET"])
+def leaderboards(request):
+    if request.method == "GET":
+        if request.GET.get('menu') == "true":
+            caterings = catering_services.get_popular_caterings()
+            if caterings is not None :
+                return JsonResponse(caterings.data,safe=False, status=status.HTTP_200_OK)
+            else:
+                return JsonResponse([], status=status.HTTP_200_OK)
+        else:
+            users = user_services.get_top_customer()
+            if users is not None:
+                return JsonResponse(users.data, safe=False, status=status.HTTP_200_OK)
+            else:
+                return JsonResponse([], status=status.HTTP_200_OK)
 
 @swagger_auto_schema(
     method='post',
@@ -104,6 +117,7 @@ def login(request):
         base_url = "https://bluejack.binus.ac.id/lapi/api/Account/"
         messier_login_token = requests.post(base_url + "LogOn", data={"username": username, "password": password}).json()
 
+        print(username, password, messier_login_token)
         if not "access_token" in messier_login_token:
             return JsonResponse({"message": "Invalid username / password"}, status=status.HTTP_400_BAD_REQUEST)
         

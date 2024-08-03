@@ -25,12 +25,12 @@
             </div>
         </div>
         <div class="grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-8">
-            <div class="flex flex-col bg-gray-300 rounded-2xl">
-                <div class="text-xl font-semibold p-4 text-center">Top Customer</div>
+            <div class="flex flex-col bg-gray-300 rounded-xl">
+                <div class="text-xl font-semibold p-4 text-center text-white rounded-t-xl bg-gradient-to-b from-slate-700 to-gray-700">Top Customer</div>
                 <TopCustomer/>
             </div>
-            <div class="flex flex-col bg-gray-300 rounded-2xl">
-                <div class="text-xl font-semibold p-4 text-center">Most Popular Menu</div>
+            <div class="flex flex-col bg-gray-300 rounded-xl">
+                <div class="text-xl font-semibold p-4 text-center text-white rounded-t-xl bg-gradient-to-b from-slate-700 to-gray-700">Most Popular Menu</div>
                 <TopMenu/>
             </div>
         </div>

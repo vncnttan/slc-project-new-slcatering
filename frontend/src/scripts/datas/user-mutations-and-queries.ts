@@ -16,3 +16,11 @@ export async function login(usernameInput: string, passwordInput: string) {
         password: passwordInput
     })
 }
+
+export function getTopCustomer() {
+    return axios.get(`${base_url}/leaderboards?customer=true`, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+}
