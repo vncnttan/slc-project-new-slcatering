@@ -1,6 +1,5 @@
 <script>
     import ProgressItem from "./ProgressItem.svelte";
-    import {slide} from 'svelte/transition';
     import {tweened} from "svelte/motion";
     import {cubicOut} from "svelte/easing";
 
@@ -21,7 +20,7 @@
 </script>
 
 <div class="w-full grid grid-cols-3 relative ">
-    <div class="dash-container" transition:slide={{ duration: 2000 }}>
+    <div class="dash-container">
         <div class="dashed-line" style="width: {100 - $progress}%;"></div>
         <div class="completed-line" style="width: {$progress}%;"></div>
     </div>
