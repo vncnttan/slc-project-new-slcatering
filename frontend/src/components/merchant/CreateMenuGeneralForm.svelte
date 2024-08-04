@@ -1,5 +1,6 @@
 <script lang="ts">
-    import type {MenuInformationType} from "../../scripts/helpers";
+    import type {MenuInformationType} from "../../scripts/custom-type-declarations";
+
     export let menuInformation: MenuInformationType;
 
 </script>

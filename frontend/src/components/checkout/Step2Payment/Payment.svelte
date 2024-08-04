@@ -1,9 +1,9 @@
 <script lang="ts">
     import CheckoutSummary from "./CheckoutSummary.svelte";
-    import type {CateringType, SelectedType} from "../../../scripts/helpers";
+    import type {CateringType, OrderRequestVariantDetailType} from "../../../scripts/custom-type-declarations";
 
     export let menu: CateringType
-    export let selectedVariants: SelectedType[]
+    export let selectedVariants: OrderRequestVariantDetailType[]
 </script>
 
 <div class="page-container">

@@ -2,11 +2,12 @@
     import CreateMenuGeneralForm from "../../../components/merchant/CreateMenuGeneralForm.svelte";
     import CreateMenuVariantForm from "../../../components/merchant/CreateMenuVariantForm.svelte";
     import ThumbnailForm from "../../../components/merchant/ThumbnailForm.svelte";
-    import {type MenuInformationType, showToast, TOAST_TYPE} from "../../../scripts/helpers";
+    import { showToast, TOAST_TYPE} from "../../../scripts/helpers";
     import {createMenu} from "../../../scripts/datas/catering-mutations-and-queries";
     import {uploadFile} from "../../../scripts/firebase_upload";
     import type {PageData} from "./$types";
     import {goto} from "$app/navigation";
+    import type {MenuInformationType} from "../../../scripts/custom-type-declarations";
 
     export let data: PageData;
 

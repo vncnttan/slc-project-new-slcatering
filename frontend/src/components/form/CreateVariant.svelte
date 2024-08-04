@@ -1,9 +1,12 @@
 <script lang="ts">
-    export let selectedVariants: {variant_id: string, quantity: number}[]
+    import type {OrderRequestVariantDetailType} from "../../scripts/custom-type-declarations";
+
+    export let selectedVariants: OrderRequestVariantDetailType[]
 
     function addVariant() {
         selectedVariants = [...selectedVariants, {
             variant_id: "Reguler",
+            variant_name: "Reguler",
             quantity: 1
         }];
     }

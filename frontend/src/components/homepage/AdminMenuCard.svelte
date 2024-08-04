@@ -1,4 +1,6 @@
 <script lang="ts">
+    import {formatPrice} from "../../scripts/helpers";
+
     interface MenuType {
         name: string;
         price: number;
@@ -19,7 +21,7 @@
             </div>
         </div>
         <div>
-            Rp {menu.price}
+            {formatPrice(menu.price)}
         </div>
     </div>
     <div class="flex flex-row w-full justify-end gap-1 md:gap-2">

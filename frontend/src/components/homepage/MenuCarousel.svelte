@@ -2,8 +2,9 @@
     import Siema from "siema";
     import {onMount} from "svelte";
     import {getActiveMenus} from "../../scripts/datas/catering-mutations-and-queries";
-    import type {CateringType} from "../../scripts/helpers";
     import {fade} from 'svelte/transition';
+    import type {CateringType} from "../../scripts/custom-type-declarations";
+    import {formatPrice} from "../../scripts/helpers";
 
     let slider: Siema | null = null;
     let prev: () => void
@@ -97,7 +98,7 @@
                                     {m.title}
                                 </div>
                                 <div class="text-sm text-white">
-                                    Rp. {m.price}
+                                    {formatPrice(m.price)}
                                 </div>
                             </div>
                         </a>

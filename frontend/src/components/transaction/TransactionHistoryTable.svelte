@@ -1,8 +1,9 @@
 <script lang="ts">
     import {onMount} from "svelte";
-    import type {OrderType} from "../../scripts/helpers";
     import {getUserOrders} from "../../scripts/datas/order-mutations-and-queries";
     import {fade} from 'svelte/transition';
+    import type {OrderType} from "../../scripts/custom-type-declarations";
+    import {formatPrice} from "../../scripts/helpers";
 
     export let access_token: string | undefined;
     let orders: OrderType[] = [];
@@ -62,7 +63,7 @@
                             {order.catering.title}
                         </td>
                         <td class="px-6 py-4 hidden md:inline-block">
-                            Rp. {order.variant?.additional_price ?? + order.catering.price}
+                            {formatPrice(order.variant?.additional_price ?? + order.catering.price)}
                         </td>
                         <td class="px-6 py-4 ">
                             {order.variant?.variant_name ?? "Regular"}

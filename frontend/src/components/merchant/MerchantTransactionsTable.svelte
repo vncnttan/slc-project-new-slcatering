@@ -1,7 +1,8 @@
 <script lang="ts">
     import {onMount} from "svelte";
     import {getCateringByMerchantId} from "../../scripts/datas/catering-mutations-and-queries";
-    import type {CateringType} from "../../scripts/helpers";
+    import type {CateringType} from "../../scripts/custom-type-declarations";
+    import {formatPrice} from "../../scripts/helpers";
 
     export let access_token: string | undefined;
     let products: CateringType[] = [];
@@ -39,7 +40,7 @@
                     {product.title}
                 </th>
                 <td class="text-center px-6 py-4 hidden md:block">
-                    Rp. {product.price}
+                    {formatPrice(product.price)}
                 </td>
                 <td class="text-center px-6 py-4 ">
                     <div class="h-2.5 w-2.5 rounded-full {!product.is_closed ? 'bg-green-600' : 'bg-orange-sig'} me-1 inline-block"></div>

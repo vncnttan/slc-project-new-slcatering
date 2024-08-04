@@ -1,8 +1,8 @@
 <script lang="ts">
 
-    import type {CateringType} from "../../scripts/helpers";
     import {onMount} from "svelte";
     import {getMostPopularMenu} from "../../scripts/datas/catering-mutations-and-queries";
+    import type {CateringType} from "../../scripts/custom-type-declarations";
 
     let menus: CateringType[] = []
 

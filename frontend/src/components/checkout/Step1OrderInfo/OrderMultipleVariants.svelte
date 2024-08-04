@@ -1,13 +1,13 @@
 <script lang="ts">
-    import SelectField from "../../form/SelectField.svelte";
-    import type {VariantType} from "../../../scripts/helpers";
+    import SelectVariantField from "../../form/SelectVariantField.svelte";
     import QuantitySelector from "../../form/QuantitySelector.svelte";
     import CreateVariant from "../../form/CreateVariant.svelte";
     import DeleteVariant from "../../form/DeleteVariant.svelte";
+    import type {OrderRequestVariantDetailType, VariantType} from "../../../scripts/custom-type-declarations";
 
     export let variants = [] as VariantType[];
 
-    export let selectedVariants: {variant_id: string, quantity: number}[];
+    export let selectedVariants: OrderRequestVariantDetailType[]
     function removeVariant(index: number) {
         selectedVariants = [...selectedVariants.filter((v, i) => {
             return i !== index;
@@ -18,7 +18,7 @@
 <div class="flex flex-col gap-2">
     <div class="flex flex-row justify-between place-items-end">
         <div class="font-medium font-karla text-gray-500">Variants</div>
-        <CreateVariant bind:selectedVariants={selectedVariants}/>
+        <CreateVariant bind:selectedVariants/>
     </div>
     {#each selectedVariants as sv, i}
         <div class="flex flex-row gap-2">
@@ -33,7 +33,7 @@
                           clip-rule="evenodd"/>
                 </svg>
             </button>
-            <SelectField bind:variants={variants} bind:selectedVariant={sv} />
+            <SelectVariantField bind:variants={variants} bind:selectedVariant={sv} />
             <QuantitySelector bind:inputValue={sv.quantity}/>
             <DeleteVariant/>
         </div>

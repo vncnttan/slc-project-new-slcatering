@@ -5,7 +5,8 @@
     import {page} from "$app/stores";
     import {onMount} from "svelte";
     import {getCateringDetailsById} from "../../../scripts/datas/catering-mutations-and-queries";
-    import type {CateringType} from "../../../scripts/helpers";
+    import type {CateringType} from "../../../scripts/custom-type-declarations";
+    import {formatPrice} from "../../../scripts/helpers";
 
     let id = $page.params.id;
     let menu = {} as CateringType
@@ -50,7 +51,7 @@
 
                     <div class="mt-4 xl:mt-12 flex flex-col gap-1">
                         <div class="font-semibold text-3xl">
-                            Rp. {menu.price}
+                            {formatPrice(menu.price)}
                         </div>
                         <div class="text-xs">
                             * Price may vary depends on your variant and merchant

@@ -39,70 +39,9 @@ export const showToast = (message: string, type: TOAST_TYPE) => {
     })
 }
 
-export interface MenuInformationType {
-    imageLink: string,
-    title: string,
-    date: string,
-    stock: string,
-    price: string,
-    catering_variants: VariantType[],
-}
-
-export interface SelectedType {
-    variant_id: string,
-    quantity: number,
-    variant_name: string,
-}
-
-export interface VariantType {
-    id: string,
-    variant_name: string,
-    additional_price: number | null,
-}
-
-export interface CateringType {
-    id: string,
-    title: string,
-    imageLink: string | null,
-    price: number,
-    is_closed: boolean,
-    merchant: string,
-    date: string,
-    order_count: number,
-    created_by: {
-        username: string
-        role: string
-        store_name: string
-    },
-    catering_variants: VariantType[]
-}
-
-export interface OrderType {
-    id: string,
-    catering: {
-        id: string,
-        price: number,
-        title: string,
-        date: string,
-    },
-    is_paid: boolean,
-    notes: string,
-    ordered_by: {
-        id: string,
-        username: string,
-        role: string,
-    },
-    variant: {
-        id: string,
-        variant_name: string,
-        additional_price: string,
-    }
-}
-
-export type CustomerType = {
-    id: string,
-    username: string,
-    role: string,
-    store_name: string,
-    total_order: number,
+export const formatPrice = (price: number) => {
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR"
+    }).format(price);
 }
