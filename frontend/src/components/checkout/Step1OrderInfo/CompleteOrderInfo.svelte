@@ -42,9 +42,8 @@
             </TextField>
         </div>
         <div class="grid grid-cols-2 gap-2">
-            <a href="/" class="text-center py-3 bg-gray-500 rounded-lg text-white text-xl">Back</a>
-            <button class="py-3 bg-orange-sig rounded-lg text-white text-xl" on:click={progressToNextStep}> Continue
-            </button>
+            <a href="/" class="text-center py-3 bg-gray-400 hover:bg-gray-500 rounded-lg text-white text-xl">Back</a>
+            <button class="py-3 bg-orange-sig hovered-bg-orange-sig rounded-lg text-white text-xl" on:click={progressToNextStep}> Continue</button>
         </div>
     </div>
 </div>
