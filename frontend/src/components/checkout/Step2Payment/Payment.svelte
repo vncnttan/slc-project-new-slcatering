@@ -1,19 +1,23 @@
 <script lang="ts">
     import CheckoutSummary from "./CheckoutSummary.svelte";
-    import type {CateringType, OrderRequestVariantDetailType} from "../../../scripts/custom-type-declarations";
+    import type {
+        CateringType,
+        OrderRequestType,
+    } from "../../../scripts/custom-type-declarations";
+    import CheckoutQR from "./CheckoutQR.svelte";
 
     export let menu: CateringType
-    export let selectedVariants: OrderRequestVariantDetailType[]
+    export let orderRequest: OrderRequestType
 </script>
 
 <div class="page-container">
     <div class="border-box-container">
         <!--        Summary -->
-        <CheckoutSummary menu={menu} selectedVariants={selectedVariants}/>
+        <CheckoutSummary menu={menu} orderRequest={orderRequest}/>
     </div>
     <div class="border-box-container">
         <!--        QR Code -->
-        s
+        <CheckoutQR />
     </div>
 </div>
 

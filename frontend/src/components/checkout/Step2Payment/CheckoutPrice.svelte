@@ -6,7 +6,10 @@
     export let selectedVariants: OrderRequestVariantDetailType[];
     export let menu: CateringType;
 
-    console.log(selectedVariants)
+    let totalPrice = 0
+    for (let i = 0; i < selectedVariants.length; i++) {
+        totalPrice += (menu.price + selectedVariants[i].additional_price) * selectedVariants[i].quantity
+    }
 </script>
 
 <div class="flex flex-col">
@@ -26,5 +29,24 @@
         </div>
     {/each}
 
-<!--    Grand Total Section-->
+    <!--    Grand Total Section-->
+    <div class="dashed-line"></div>
+
+    <div class="flex flex-row justify-between text-2xl font-bold">
+        <div class="flex flex-row">
+            Grand Total
+        </div>
+        <div>
+            {formatPrice(totalPrice)}
+        </div>
+    </div>
 </div>
+
+<style>
+    .dashed-line {
+        border-top: 1px dashed #b9b9b9;
+        width: 100%;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+</style>

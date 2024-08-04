@@ -32,6 +32,6 @@
     {#if currentStep === 1}
         <CompleteOrderInfo bind:currentStep menu={menu} bind:orderRequest/>
     {:else if currentStep === 2}
-        <Payment menu={menu} selectedVariants={orderRequest.variants}/>
+        <Payment menu={menu} orderRequest={orderRequest}/>
     {/if}
 </CheckoutLayout>
