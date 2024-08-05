@@ -70,7 +70,6 @@ class OrderUserSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'username',
-            'role'
         )
 
 

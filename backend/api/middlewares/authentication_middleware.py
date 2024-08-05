@@ -82,13 +82,16 @@ class OrderMiddleware:
 
 # TODO: Migrate to helper
 def get_auth_by_header(auth_header, request):
-    token_type, token = auth_header.split(' ')
-    if token_type == 'Bearer':
-        token = token.encode('utf-8')
-        print("Token: ", token)
-        decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
-        print("Decoded Token: ", decoded_token)
-        request.user_id = decoded_token.get('user_id')
-        print("User ID: ", request.user_id)
-    else:
-        return JsonResponse({'message':'Access Denied!'}, status=status.HTTP_401_UNAUTHORIZED)
+    try:
+        token_type, token = auth_header.split(' ')
+        if token_type == 'Bearer':
+            token = token.encode('utf-8')
+            print("Token: ", token)
+            decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+            print("Decoded Token: ", decoded_token)
+            request.user_id = decoded_token.get('user_id')
+            print("User ID: ", request.user_id)
+        else:
+            return JsonResponse({'message':'Access Denied!'}, status=status.HTTP_401_UNAUTHORIZED)
+    except Exception as e:
+        return JsonResponse({"message": "Access Denied"}, status=status.HTTP_401_UNAUTHORIZED)

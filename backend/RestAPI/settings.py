@@ -33,7 +33,7 @@ pymysql.install_as_MySQLdb()
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG")
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
@@ -41,8 +41,11 @@ EMAIL_PORT = os.environ.get('EMAIL_PORT')
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 FRONTEND_HOST = os.environ.get('FRONTEND_HOST')
-MERCHANT_CODE = os.environ.get('MERCHANT_CODE')
-MERCHANT_KEY = os.environ.get('MERCHANT_KEY')
+PAYMENT_GATEWAY_URL = os.environ.get("PAYMENT_GATEWAY_URL")
+PAYMENT_GATEWAY_MERCHANT_CODE = os.environ.get("PAYMENT_GATEWAY_MERCHANT_CODE")
+PAYMENT_GATEWAY_API_KEY = os.environ.get("PAYMENT_GATEWAY_API_KEY")
+PAYMENT_GATEWAY_METHOD_CODE = os.environ.get("PAYMENT_GATEWAY_METHOD_CODE")
+PAYMENT_GATEWAY_CALLBACK_URL = os.environ.get("PAYMENT_GATEWAY_CALLBACK_URL")
 
 ALLOWED_HOSTS = ['*']
 
