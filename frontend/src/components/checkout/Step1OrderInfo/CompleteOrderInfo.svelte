@@ -19,6 +19,35 @@
         if (!orderRequest.notes || orderRequest.notes === "") {
             orderRequest.notes = "-"
         }
+
+        let newVariants = []
+        const uniqueVariants = new Set()
+
+        for (let i = 0; i < orderRequest.variants.length; i++) {
+            const variant = orderRequest.variants[i]
+
+            if (variant.quantity == 0) {
+                continue;
+            }
+
+            if (uniqueVariants.has(variant.variant_id)) {
+                newVariants.forEach((v) => {
+                    if (v.variant_id === variant.variant_id) {
+                        v.quantity += variant.quantity
+                    }
+                })
+                continue
+            }
+
+            uniqueVariants.add(variant.variant_id)
+            newVariants.push(variant)
+        }
+
+        orderRequest.variants = newVariants
+        if (orderRequest.variants.length === 0) {
+            showToast("Please select at least one variant with non-zero quantity", TOAST_TYPE.ERROR)
+            return
+        }
         currentStep += 1
     }
 

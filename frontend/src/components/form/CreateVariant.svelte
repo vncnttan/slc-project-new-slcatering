@@ -7,7 +7,8 @@
         selectedVariants = [...selectedVariants, {
             variant_id: "Reguler",
             variant_name: "Reguler",
-            quantity: 1
+            quantity: 1,
+            additional_price: 0,
         }];
     }
 </script>

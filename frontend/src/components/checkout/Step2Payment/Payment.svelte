@@ -18,6 +18,8 @@
     function progressToPreviousStep() {
         currentStep -= 1
     }
+
+    console.log(orderRequest)
 </script>
 
 <div class="flex flex-col gap-12 place-items-center w-full">
