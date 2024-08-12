@@ -10,4 +10,5 @@ urlpatterns = [
     path('catering', catering_views.catering),
     path('order', order_views.order),
     path('leaderboards', user_views.leaderboards),
+    
 ]
