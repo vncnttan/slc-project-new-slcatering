@@ -21,7 +21,7 @@ jobs:
       
       - name: Build and push Docker image
         run: |
-          docker build -t  ${{ secrets.DOCKERHUB_USERNAME }}/slcatering_fe:latest ./frontend
+          npm run image
           docker tag slcatering_fe:latest ${{ secrets.DOCKER_HUB_USERNAME }}/slcatering_fe:latest
           docker push  ${{ secrets.DOCKERHUB_USERNAME }}/slcatering_fe:latest
       
