@@ -47,9 +47,7 @@ def get_all_caterings_by_merchant(merchant_id):
 def get_specific_catering_by_id(id):
     try:
         catering = Catering.objects.get(id=id)
-        catering_serializer = CateringViewSerializer(catering)
-        print(catering_serializer.data)
-        return catering_serializer
+        return catering
     except Catering.DoesNotExist:
         return None
     
