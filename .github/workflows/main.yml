@@ -21,8 +21,9 @@ jobs:
       
       - name: Build and push Docker image
         run: |
-          docker build -t username/repo_name:latest .
-          docker push username/repo_name:latest
+          docker build -t  ${{ secrets.DOCKERHUB_USERNAME }}/slcatering_fe:latest ./frontend
+          docker tag slcatering_fe:latest ${{ secrets.DOCKER_HUB_USERNAME }}/slcatering_fe:latest
+          docker push  ${{ secrets.DOCKERHUB_USERNAME }}/slcatering_fe:latest
       
       - name: Deploy to VPS
         uses: appleboy/ssh-action@master
@@ -31,6 +32,5 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
           script: |
-            docker pull username/repo_name:latest
-            cd repo_name
-            docker-compose up -d --build
+            docker pull vncnttan/slcatering_fe:latest
+            docker compose up -d --build
