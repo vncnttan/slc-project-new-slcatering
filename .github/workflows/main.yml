@@ -18,7 +18,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push Docker image
+      - name: Creating env
         run: |
           cd frontend
           touch .env
@@ -30,6 +30,8 @@ jobs:
           echo PUBLIC_FIREBASE_MESSAGING_SENDER_ID = ${{ secrets.PUBLIC_FIREBASE_MESSAGING_SENDER_ID }} >> .env
           echo PUBLIC_FIREBASE_APP_ID = ${{ secrets.PUBLIC_FIREBASE_APP_ID }} >> .env
           cat .env
+      - name: Build and push Docker image
+        run: |
           npm run image
           docker tag slcatering_fe:latest ${{ secrets.DOCKER_HUB_USERNAME }}/slcatering_fe:latest
           docker push  ${{ secrets.DOCKERHUB_USERNAME }}/slcatering_fe:latest
