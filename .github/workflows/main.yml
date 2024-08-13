@@ -32,6 +32,7 @@ jobs:
           cat .env
       - name: Build and push Docker image
         run: |
+          cd frontend
           npm run image
           docker tag slcatering_fe:latest ${{ secrets.DOCKER_HUB_USERNAME }}/slcatering_fe:latest
           docker push  ${{ secrets.DOCKERHUB_USERNAME }}/slcatering_fe:latest
