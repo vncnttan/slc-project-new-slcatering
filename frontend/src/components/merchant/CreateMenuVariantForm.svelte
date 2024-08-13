@@ -20,8 +20,9 @@
             }
         }
         menuInformation.catering_variants = [...menuInformation.catering_variants, {
+            id: Math.random().toString(36).substring(7),
             variant_name: '',
-            additional_price: null
+            additional_price: 0
         }]
     }
 
