@@ -18,7 +18,18 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
+      - name: Creating env
+        run: |
+          cd frontend
+          touch .env
+          echo VITE_API_BASE_URL = ${{ secrets.VITE_API_BASE_URL }} >> .env
+          echo VITE_BACKEND_BASE_URL = ${{ secrets.VITE_BACKEND_BASE_URL }} >> .env
+          echo PUBLIC_FIREBASE_API_KEY = ${{ secrets.PUBLIC_FIREBASE_API_KEY }} >> .env
+          echo PUBLIC_FIREBASE_AUTH_DOMAIN = ${{ secrets.PUBLIC_FIREBASE_AUTH_DOMAIN }} >> .env
+          echo PUBLIC_FIREBASE_PROJECT_ID = ${{ secrets.PUBLIC_FIREBASE_PROJECT_ID }} >> .env
+          echo PUBLIC_FIREBASE_MESSAGING_SENDER_ID = ${{ secrets.PUBLIC_FIREBASE_MESSAGING_SENDER_ID }} >> .env
+          echo PUBLIC_FIREBASE_APP_ID = ${{ secrets.PUBLIC_FIREBASE_APP_ID }} >> .env
+          cat .env
       - name: Build and push Docker image
         run: |
           cd frontend
