@@ -7,6 +7,7 @@ RUN cat .env
 
 COPY package.json ./
 COPY package-lock.json ./
+COPY .env ./.env
 RUN npm install
 COPY . ./
 RUN npm run check
