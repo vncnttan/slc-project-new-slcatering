@@ -43,7 +43,7 @@ jobs:
         with:
           host: ${{ secrets.VPS_IP }}
           username: ${{ secrets.VPS_USER }}
-          password: ${{ secrets.VPS_PASSWORD }}
+          key: ${{ secrets.SSH_PRIVATE_KEY}}
           script: |
             cd slcatering-docker/
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/slcatering_fe:latest
