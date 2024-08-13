@@ -1,15 +1,5 @@
 services:
-  slcatering_fe:
-    image: node:14-alpine
-    volumes:
-      - type: bind
-        source: ./
-        target: /app
-    working_dir: /app
-    command: npm run dev
+  web:
+    image: vncnttan/slcatering_fe:latest
     ports:
-      - "5000:5000"
-    environment:
-      - NODE_ENV=development
-      - PORT=5000
-      - HOST=0.0.0.0
+      - "80:80"
