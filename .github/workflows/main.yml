@@ -20,7 +20,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Creating env
         run: |
-          cd frontend
           touch .env
           echo VITE_API_BASE_URL = ${{ secrets.VITE_API_BASE_URL }} >> .env
           echo VITE_BACKEND_BASE_URL = ${{ secrets.VITE_BACKEND_BASE_URL }} >> .env
@@ -32,7 +31,6 @@ jobs:
           cat .env
       - name: Build and push Docker image
         run: |
-          cd frontend
           npm run image
           docker tag slcatering_fe:latest ${{ secrets.DOCKER_HUB_USERNAME }}/slcatering_fe:latest
           docker push  ${{ secrets.DOCKERHUB_USERNAME }}/slcatering_fe:latest
