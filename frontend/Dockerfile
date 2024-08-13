@@ -3,8 +3,6 @@ FROM node:18 AS build
 
 WORKDIR /app
 
-RUN cat .env
-
 COPY package.json ./
 COPY package-lock.json ./
 COPY .env ./.env
